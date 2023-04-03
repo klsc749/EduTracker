@@ -1,32 +1,51 @@
 # EduTracker
-
-
+EduTracker A Learning Journey Application that helps students record and track their academic progress throughout their studies.
 
 ## UML
 
 ```mermaid
 classDiagram
-    note "From Duck till Zebra"
-    Animal <|-- Duck
-    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
-    Animal <|-- Fish
-    Animal <|-- Zebra
-    Animal : +int age
-    Animal : +String gender
-    Animal: +isMammal()
-    Animal: +mate()
-    class Duck{
-        +String beakColor
-        +swim()
-        +quack()
+    class Activity {
+        -int id
+        -String name
+        -Date startDate
+        -Date endDate
+        -Enum type
     }
-    class Fish{
-        -int sizeInFeet
-        -canEat()
+    <<abstract>> Activity
+    
+    class Module{
+        -Mark mark
+        -List~String~ skillTags
+        -String degree        
     }
-    class Zebra{
-        +bool is_wild
-        +run()
+    Activity <|-- Module : inheritance
+    
+    class CalculateMark{
+        +double calculateMark()
     }
+    <<interface>> CalculateMark
+    
+    class Mark{
+        -List~MarkItem~ markItems
+        -double totalMark
+    }
+    
+    class MarkItem{
+        -String name
+        -double mark
+        -double proportion
+    }
+    
+    CalculateMark <|-- Mark : implements
+    CalculateMark <|-- MarkItem : implements
+    
+    class ExtraCurriculum{
+        -String content
+        -String guidedTeacher
+        -List ~String~ teammates
+    }
+    
+    Activity <|-- ExtraCurriculum : inheritance
 ```
 

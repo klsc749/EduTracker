@@ -12,6 +12,7 @@ classDiagram
         -Date startDate
         -Date endDate
         -ActivityType type 
+        -List~String~ directors
     }
     
     class ActivityType{
@@ -54,10 +55,21 @@ classDiagram
     
     class ExtraCurriculum{
         -String content
-        -String guidedTeacher
         -List ~String~ teammates
     }
     
     Activity <|-- ExtraCurriculum : inheritance
+    
+    class People{
+        -String name
+        -String email        
+    }
+    
+    class Student{
+        -String studentId
+        -String degree
+    }
+    
+    People <|-- Student : inheritance
 ```
 

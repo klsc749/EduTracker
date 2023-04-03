@@ -6,13 +6,22 @@ EduTracker A Learning Journey Application that helps students record and track t
 ```mermaid
 classDiagram
     class Activity {
+        <<abstract>>
         -int id
         -String name
         -Date startDate
         -Date endDate
-        -Enum type
+        -ActivityType type 
     }
-    <<abstract>> Activity
+    
+    class ActivityType{
+        <<Enum>>
+        STUDENT
+        TEACHER
+    }
+    
+    Activity --> ActivityType : contains
+    
     
     class Module{
         -Mark mark
@@ -39,6 +48,9 @@ classDiagram
     
     CalculateMark <|-- Mark : implements
     CalculateMark <|-- MarkItem : implements
+    
+    Module "1" --> "1" Mark : Contains
+    Mark "1" --> "0..*" MarkItem : Contains
     
     class ExtraCurriculum{
         -String content

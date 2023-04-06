@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Activity {
+public class Activity {
 
-    int id;
+    String id;
     String name;
     Date startDate;
     Date endDate;
     ActivityType type;
     List<String> directors = new ArrayList<String>();
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,7 +61,12 @@ public abstract class Activity {
         this.directors = directors;
     }
 
-    enum ActivityType{
-        TEACHER,STUDENT;
+    @Override
+    public String toString(){
+        return "Activity [id=" + id + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", type=" + type + ", directors=" + directors + "]";
+    }
+
+    public enum ActivityType{
+        TEACHER, CLASS;
     }
 }

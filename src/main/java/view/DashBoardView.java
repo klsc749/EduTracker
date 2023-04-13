@@ -3,7 +3,7 @@ package view;
 import component.ActivityCardPagination;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import service.ActivityService;
 
@@ -15,12 +15,10 @@ public class DashBoardView extends Application {
     @Override
     public void start(Stage primaryStage){
 
-        FlowPane root = new FlowPane();
+        ActivityCardPagination activityCardPagination = new ActivityCardPagination();
 
-
-
-
-        root.getChildren().addAll(new ActivityCardPagination());
+        VBox root = new VBox();
+        root.getChildren().addAll(activityCardPagination);
 
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);

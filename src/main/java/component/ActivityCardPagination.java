@@ -1,9 +1,11 @@
 package component;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Pagination;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ActivityCardPagination extends VBox {
+public class ActivityCardPagination extends FlowPane {
     private Pagination pagination;
     private final int itemsPerPage = 12;
     private List<Activity> activities;
@@ -22,11 +24,14 @@ public class ActivityCardPagination extends VBox {
     private final ActivityService activityService = new ActivityService();
 
     public ActivityCardPagination() {
+        setStyle("-fx-background-color: grey;");
         this.activities = activityService.getAllActivities();
         int totalPages = (int) Math.ceil((double) activities.size() / itemsPerPage);
         pagination = new Pagination(totalPages, 0);
         pagination.setPageFactory(this::createPage);
-        getChildren().add(pagination);
+        VBox container = new VBox();
+        container.getChildren().add(pagination);
+        getChildren().add(container);
     }
 
     private GridPane createPage(int pageIndex) {
@@ -40,7 +45,7 @@ public class ActivityCardPagination extends VBox {
         double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
         // Calculate card width and height based on screen size
-        double cardWidth = screenWidth * 0.15; // Adjust this factor as needed
+        double cardWidth = screenWidth * 0.1; // Adjust this factor as needed
         double cardHeight = screenHeight * 0.25; // Adjust this factor as needed
 
         IntegerBinding columns = Bindings.createIntegerBinding(() -> {
@@ -54,11 +59,14 @@ public class ActivityCardPagination extends VBox {
             updateGrid(grid, pageIndex, newVal.intValue(), cardWidth, cardHeight);
         });
 
-        updateGrid(grid, pageIndex, columns.get(), cardWidth, cardHeight);
+        Platform.runLater(() -> {
+            updateGrid(grid, pageIndex, columns.get(), cardWidth, cardHeight);
+        });
 
         return grid;
     }
-    private Map<String, ActivityCard> activityCardCache = new HashMap<>();
+
+    private final Map<String, ActivityCard> activityCardCache = new HashMap<>();
 
     private void updateGrid(GridPane grid, int pageIndex, int columns, double cardWidth, double cardHeight) {
         int pageStart = pageIndex * itemsPerPage;
@@ -76,8 +84,14 @@ public class ActivityCardPagination extends VBox {
             activityCard.setPrefSize(cardWidth, cardHeight);
             int column = (i - pageStart) % columns;
             int row = (i - pageStart) / columns;
+
+            if (activityCard.getParent() != null) {
+                ((GridPane) activityCard.getParent()).getChildren().remove(activityCard);
+            }
+
             grid.add(activityCard, column, row);
         }
     }
+
 }
 

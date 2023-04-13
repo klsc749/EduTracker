@@ -20,7 +20,7 @@ public class ActivityCard extends VBox {
         this.activity = activity;
         initStyle(width, height);
 
-        ImageView imageView = createImageView(imagePath, width, height);
+        ImageView imageView = createImageView(imagePath, width);
         ProgressIndicator progressIndicator = createProgressIndicator(imageView, progress);
         StackPane imageProgress = createImageProgress(imageView, progressIndicator);
         Label nameLabel = createLabel(activity.getName(), "18", "bold", "black");
@@ -43,11 +43,11 @@ public class ActivityCard extends VBox {
                 "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);");
     }
 
-    private ImageView createImageView(String imagePath, double width, double height) {
+    private ImageView createImageView(String imagePath, double width) {
         ImageView imageView = new ImageView(new Image(imagePath));
         
         imageView.setFitWidth(width);
-        imageView.setFitHeight(height);
+        imageView.setFitHeight(width);
         return imageView;
     }
 

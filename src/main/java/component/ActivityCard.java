@@ -5,37 +5,49 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import model.Activity;
+import view.ModuleInfo;
+
+import java.text.SimpleDateFormat;
 
 public class ActivityCard extends VBox {
-    public ActivityCard(String activityName, String semester, String imagePath, double progress) {
-        initStyle();
+    private Activity activity;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    public ActivityCard(Activity activity, String imagePath, double progress, double width, double height) {
+        this.activity = activity;
+        initStyle(width, height);
 
-        ImageView imageView = createImageView(imagePath);
+        ImageView imageView = createImageView(imagePath, width, height);
         ProgressIndicator progressIndicator = createProgressIndicator(imageView, progress);
         StackPane imageProgress = createImageProgress(imageView, progressIndicator);
-        Label nameLabel = createLabel(activityName, "18", "bold", "black");
-        Label semesterLabel = createLabel(semester, "14", "normal", "gray");
+        Label nameLabel = createLabel(activity.getName(), "18", "bold", "black");
+        Label semesterLabel = createLabel(dateFormatter.format(activity.getStartDate()) + "--" + dateFormatter.format(activity.getEndDate()),
+                "14", "normal", "gray");
 
+        setOnMouseClicked(this::handleClick);
 
         getChildren().addAll(imageProgress, nameLabel, semesterLabel);
     }
 
-    private void initStyle(){
+    private void initStyle(double width, double height){
         setSpacing(10);
         setAlignment(Pos.CENTER);
+        setMinWidth(width);
+        setMaxWidth(width);
         setStyle("-fx-background-color: white; " +
                 "-fx-border-color: #cccccc; -fx-border-width: 2; " +
                 "-fx-border-radius: 10; -fx-background-radius: 10; " +
                 "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);");
     }
 
-    private ImageView createImageView(String imagePath) {
+    private ImageView createImageView(String imagePath, double width, double height) {
         ImageView imageView = new ImageView(new Image(imagePath));
         
-        imageView.setFitWidth(150);
-        imageView.setFitHeight(150);
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
         return imageView;
     }
 
@@ -59,4 +71,15 @@ public class ActivityCard extends VBox {
         label.setStyle("-fx-font-size: " + fontSize + "; -fx-font-weight: " + fontWeight + "; -fx-text-fill: " + textColor + ";");
         return label;
     }
+
+    private void handleClick(MouseEvent event){
+        System.out.println("Clicked " + event.getSource() + " " + this);
+        if(activity.getType() == Activity.ActivityType.CLASS) {
+            ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
+            getScene().setRoot(moduleInfo);
+        }else if(activity.getType() == Activity.ActivityType.EXTRA) {
+            //TODO open extra info
+        }
+    }
+
 }

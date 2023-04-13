@@ -1,7 +1,6 @@
 package service;
 
 import dao.StudentDao;
-import model.Student;
 
 public class StudentService {
     private StudentDao studentDao = new StudentDao();

@@ -2,3 +2,4 @@
 {"directors":["1","2","3"],"endDate":"2023-04-06 22:18:25.258","id":"5ba44626-ddcc-4131-9ba1-78ef42ec93e0","name":"Middleware","startDate":"2023-04-06 22:18:25.258","type":1}
 {"directors":["1","2","3"],"endDate":"2023-04-06 22:18:37.832","id":"6c2be17f-e102-41fc-aa14-08896f0479ca","name":"Software Engineering","startDate":"2023-04-06 22:18:37.832","type":1}
 {"directors":["1","2","3"],"endDate":"2023-04-06 22:22:53.875","id":"f3813403-21c2-491e-8bf7-74c986227850","name":"Microservice","startDate":"2023-04-06 22:22:53.875","type":1}
+{"directors":["1","2","3"],"endDate":"2023-04-13 18:28:56.949","id":"1ee3254d-4001-407e-9ad0-fb9588b34ae0","name":"RFID","startDate":"2023-04-13 18:28:56.949","type":1}

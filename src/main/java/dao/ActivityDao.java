@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityDao {
+public class ActivityDao extends DAO {
     private final String storeDirectory = "src/main/resources/data/activity.txt";
 
 
@@ -89,7 +89,7 @@ public class ActivityDao {
     private Activity findActivity(String id, BufferedReader bufferedReader) throws Exception {
         String line;
         while ((line = bufferedReader.readLine()) != null) {
-            Activity activity = parseLine(line);
+            Activity activity = parseLine(line, Activity.class);
             if (isActivity(activity, id)) {
                 return activity;
             }
@@ -115,59 +115,8 @@ public class ActivityDao {
      * @param line The line to parse
      */
     private void parseLineAndAddToList(List<Activity> list, String line) {
-        Activity activity = parseLine(line);
+        Activity activity = parseLine(line, Activity.class);
         list.add(activity);        
     }
 
-    /**
-     * Parse a line from the store into an Activity object.
-     *
-     * @param line The line to parse
-     * @return The Activity object
-     */
-    private Activity parseLine(String line) {
-        // Convert the line into an Activity object
-        try {
-            return JSONObject.parseObject(line, Activity.class);
-        } catch (Exception e) 
-        {
-            System.out.println("Error parsing line: " + line);
-            return null;
-        }
-    }
-
-    /**
-     * Close the given file reader.
-     *
-     * @param fileReader The file reader to close
-     */
-    private void closeFileReader(FileReader fileReader) {
-        try {
-            // If the file reader is not null
-            if (fileReader != null) {
-                // Close the file reader
-                fileReader.close();
-            }
-        } catch (IOException e) {
-            // If an exception occurs, throw a runtime exception
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Close the given buffered reader.
-     *
-     * @param bufferedReader The buffered reader to close
-     */
-    private void closeBufferedReader(BufferedReader bufferedReader) {
-        // If the BufferedReader is not null, try to close it
-        try {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
-        } catch (IOException e) {
-            // If there is an IOException, throw a RuntimeException
-            throw new RuntimeException(e);
-        }
-    }
 }

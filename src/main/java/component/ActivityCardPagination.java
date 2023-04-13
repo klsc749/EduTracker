@@ -24,7 +24,6 @@ public class ActivityCardPagination extends FlowPane {
     private final ActivityService activityService = new ActivityService();
 
     public ActivityCardPagination() {
-        setStyle("-fx-background-color: grey;");
         this.activities = activityService.getAllActivities();
         int totalPages = (int) Math.ceil((double) activities.size() / itemsPerPage);
         pagination = new Pagination(totalPages, 0);

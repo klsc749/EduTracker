@@ -1,18 +1,12 @@
 package view;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import model.Activity;
 import service.ActivityService;
-import view.component.DashbordItem.DashBoardItem;
-
-import java.util.List;
+import component.ActivityCard;
 
 
 public class DashBoardView extends Application {
@@ -22,24 +16,20 @@ public class DashBoardView extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        List<Activity> activities = activityService.getAllActivities();
+        FlowPane root = new FlowPane();
+        root.setHgap(20);
+        root.setVgap(20);
+        root.setPadding(new Insets(20));
 
-        // Create a FlowPane with a horizontal layout and spacing of 10 pixels
-        FlowPane flowPane = new FlowPane(Orientation.HORIZONTAL, 10, 10);
-        flowPane.setPadding(new Insets(10));
+        // Add your ActivityCard components here
+        ActivityCard card1 = new ActivityCard("Activity 1", "Semester 1", "image/icon.png", 0.75);
+        ActivityCard card2 = new ActivityCard("Activity 2", "Semester 2", "image/icon.png", 1);
 
-        // Add the DashBoardItem components to the FlowPane
-        for (Activity activity : activities) {
-            DashBoardItem item = new DashBoardItem(activity);
-            flowPane.getChildren().add(item);
-        }
+        root.getChildren().addAll(card1, card2);
 
-        // Create a Scene with the FlowPane as the root node
-        Scene scene = new Scene(flowPane);
-        primaryStage.setTitle("DashBoard");
+        Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
-        primaryStage.setHeight(500);
-        primaryStage.setWidth(500);
+        primaryStage.setTitle("My JavaFX Dashboard");
         primaryStage.show();
     }
 

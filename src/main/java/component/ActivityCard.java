@@ -1,4 +1,4 @@
-package view.component.DashbordItem;
+package component;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -22,20 +22,24 @@ public class ActivityCard extends VBox {
         imageView.setFitWidth(150);
         imageView.setFitHeight(150);
 
+        double progressIndicatorWidth = imageView.getFitWidth() * 0.5;
+        double progressIndicatorHeight = progressIndicatorWidth;
         // Circular progress indicator
         ProgressIndicator progressIndicator = new ProgressIndicator(progress);
-        progressIndicator.setPrefSize(100, 100);
+        progressIndicator.setPrefSize(progressIndicatorWidth, progressIndicatorHeight);
+        progressIndicator.setMinSize(progressIndicatorWidth, progressIndicatorHeight);
         progressIndicator.setStyle("-fx-progress-color: blue;");
 
         // StackPane for overlaying the image and progress indicator
         StackPane imageProgress = new StackPane(imageView, progressIndicator);
+        StackPane.setAlignment(progressIndicator, Pos.CENTER_RIGHT);
 
         // Activity name and semester labels
         Label nameLabel = new Label(activityName);
         nameLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold;");
         Label semesterLabel = new Label(semester);
         semesterLabel.setStyle("-fx-font-size: 14; -fx-text-fill: gray;");
-        
+
         getChildren().addAll(imageProgress, nameLabel, semesterLabel);
     }
 }

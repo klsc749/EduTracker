@@ -73,7 +73,6 @@ public class ActivityCard extends VBox {
     }
 
     private void handleClick(MouseEvent event){
-        System.out.println("Clicked " + event.getSource() + " " + this);
         if(activity.getType() == Activity.ActivityType.CLASS) {
             ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
             getScene().setRoot(moduleInfo);

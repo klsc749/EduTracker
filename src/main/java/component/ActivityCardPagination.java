@@ -24,10 +24,16 @@ public class ActivityCardPagination extends FlowPane {
     private final ActivityService activityService = new ActivityService();
 
     public ActivityCardPagination() {
+        // get all activities from DB
         this.activities = activityService.getAllActivities();
+
+        // calculate total pages
         int totalPages = (int) Math.ceil((double) activities.size() / itemsPerPage);
         pagination = new Pagination(totalPages, 0);
+
+        // set pagination
         pagination.setPageFactory(this::createPage);
+
         VBox container = new VBox();
         container.getChildren().add(pagination);
         getChildren().add(container);
@@ -47,22 +53,30 @@ public class ActivityCardPagination extends FlowPane {
         double cardWidth = screenWidth * 0.1; // Adjust this factor as needed
         double cardHeight = screenHeight * 0.25; // Adjust this factor as needed
 
-        IntegerBinding columns = Bindings.createIntegerBinding(() -> {
-            int windowWidth = (int) getScene().getWindow().getWidth();
-            return Math.max(windowWidth / (int) cardWidth, 1);
-        }, getScene().getWindow().widthProperty());
+        // Get the number of columns based on the card width
+        IntegerBinding columns = getColumns(cardWidth);
 
+        // Listen for changes to the number of columns and update the grid accordingly
         columns.addListener((obs, oldVal, newVal) -> {
             // Clear the grid and re-add the cards with the updated columns
             grid.getChildren().clear();
             updateGrid(grid, pageIndex, newVal.intValue(), cardWidth, cardHeight);
         });
 
+        // Add the cards to the grid and populate the grid
         Platform.runLater(() -> {
             updateGrid(grid, pageIndex, columns.get(), cardWidth, cardHeight);
         });
 
         return grid;
+    }
+    
+    private IntegerBinding getColumns(double cardWidth) {
+        return Bindings.createIntegerBinding(() -> {
+            int windowWidth = (int) getScene().getWindow().getWidth();
+            int numCardsPerRow = windowWidth / (int) cardWidth;
+            return Math.max(numCardsPerRow, 1);
+        }, getScene().getWindow().widthProperty());
     }
 
     private final Map<String, ActivityCard> activityCardCache = new HashMap<>();
@@ -75,21 +89,36 @@ public class ActivityCardPagination extends FlowPane {
             Activity activity = activities.get(i);
             String activityId = activity.getId();
 
-            // Retrieve the cached ActivityCard if it exists, or create a new one and cache it
-            ActivityCard activityCard = activityCardCache.computeIfAbsent(activityId, id -> {
-                return new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight);
-            });
+            ActivityCard activityCard = getActivityCard(activityId, activity, cardWidth, cardHeight);
 
             activityCard.setPrefSize(cardWidth, cardHeight);
             int column = (i - pageStart) % columns;
             int row = (i - pageStart) / columns;
 
-            if (activityCard.getParent() != null) {
-                ((GridPane) activityCard.getParent()).getChildren().remove(activityCard);
-            }
-
-            grid.add(activityCard, column, row);
+            attachActivityCardToGrid(grid, activityCard, column, row);
         }
+    }
+
+    private void attachActivityCardToGrid(GridPane grid, ActivityCard activityCard, int column, int row) {
+        // remove the activity card from its parent gridpane
+        if (activityCard.getParent() != null) {
+            ((GridPane) activityCard.getParent()).getChildren().remove(activityCard);
+        }
+
+        // add the activity card to the new gridpane
+        grid.add(activityCard, column, row);
+    }
+
+    private ActivityCard getActivityCard(String activityId, Activity activity, double cardWidth, double cardHeight) {
+        // If the activity card is cached, return it
+        if (activityCardCache.containsKey(activityId)) {
+            return activityCardCache.get(activityId);
+        }
+        
+        // Otherwise create a new activity card and cache it
+        ActivityCard activityCard = new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight);
+        activityCardCache.put(activityId, activityCard);
+        return activityCard;
     }
 
 }

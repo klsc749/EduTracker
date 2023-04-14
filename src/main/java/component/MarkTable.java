@@ -25,35 +25,11 @@ public class MarkTable extends VBox {
 
     public MarkTable(List<MarkItem> markItems) {
         this.markItems = markItems == null ? new ArrayList<>() : markItems;
-
         setSpacing(10);
         table.setEditable(true);
-        // Create columns
-        // Create columns
-        TableColumn<MarkItem, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameColumn.setOnEditCommit(event -> {
-            event.getRowValue().setName(event.getNewValue());
-            updateMarkItemList();
-        });
-
-        TableColumn<MarkItem, Double> markColumn = new TableColumn<>("Mark");
-        markColumn.setCellValueFactory(new PropertyValueFactory<>("mark"));
-        markColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        markColumn.setOnEditCommit(event -> {
-            event.getRowValue().setMark(event.getNewValue());
-            updateMarkItemList();
-        });
-
-        TableColumn<MarkItem, Double> proportionColumn = new TableColumn<>("Proportion");
-        proportionColumn.setCellValueFactory(new PropertyValueFactory<>("proportion"));
-        proportionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        proportionColumn.setOnEditCommit(event -> {
-            event.getRowValue().setProportion(event.getNewValue());
-            updateMarkItemList();
-        });
-
+        TableColumn<MarkItem, String> nameColumn = createNameColumn();
+        TableColumn<MarkItem, Double> markColumn = createMarkColumn();
+        TableColumn<MarkItem, Double> proportionColumn = createProportionColumn();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         HBox hBox = addTextFields(nameColumn.getPrefWidth(), markColumn.getPrefWidth(), proportionColumn.getPrefWidth());
@@ -65,6 +41,39 @@ public class MarkTable extends VBox {
         table.setItems(observableMarkItems);
 
         getChildren().addAll(table, hBox);
+    }
+
+    private TableColumn<MarkItem, String> createNameColumn() {
+        TableColumn<MarkItem, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameColumn.setOnEditCommit(event -> {
+            event.getRowValue().setName(event.getNewValue());
+            updateMarkItemList();
+        });
+        return nameColumn;
+    }
+
+    private TableColumn<MarkItem, Double> createMarkColumn() {
+        TableColumn<MarkItem, Double> markColumn = new TableColumn<>("Mark");
+        markColumn.setCellValueFactory(new PropertyValueFactory<>("mark"));
+        markColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        markColumn.setOnEditCommit(event -> {
+            event.getRowValue().setMark(event.getNewValue());
+            updateMarkItemList();
+        });
+        return markColumn;
+    }
+
+    private TableColumn<MarkItem, Double> createProportionColumn() {
+        TableColumn<MarkItem, Double> proportionColumn = new TableColumn<>("Proportion");
+        proportionColumn.setCellValueFactory(new PropertyValueFactory<>("proportion"));
+        proportionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        proportionColumn.setOnEditCommit(event -> {
+            event.getRowValue().setProportion(event.getNewValue());
+            updateMarkItemList();
+        });
+        return proportionColumn;
     }
 
     private HBox addTextFields(Double nameFieldWidth, Double markFieldWidth, Double proportionFieldWidth) {

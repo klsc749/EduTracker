@@ -29,6 +29,8 @@ public class Home extends Application {
         Label defaultLabel = new Label("Click an item on the left menu to display content");
         root.setCenter(defaultLabel);
 
+        setRootRight(createScrollableActivityCardPaginationIfNotExit());
+
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Main Window");

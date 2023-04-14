@@ -15,6 +15,7 @@ import service.ActivityService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ActivityCardPagination extends FlowPane {
     private Pagination pagination;
@@ -25,6 +26,8 @@ public class ActivityCardPagination extends FlowPane {
     private final IntegerProperty columns = new SimpleIntegerProperty(1);
 
     private final ActivityService activityService = new ActivityService();
+
+    private Consumer<Activity> onActivityClicked;
 
     public ActivityCardPagination() {
         // get all activities from DB
@@ -125,9 +128,13 @@ public class ActivityCardPagination extends FlowPane {
         }
 
         // Otherwise create a new activity card and cache it
-        ActivityCard activityCard = new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight);
+        ActivityCard activityCard = new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight, onActivityClicked);
         activityCardCache.put(activityId, activityCard);
         return activityCard;
+    }
+
+    public void setOnActivityClicked(Consumer<Activity> onActivityClicked) {
+        this.onActivityClicked = onActivityClicked;
     }
 
 }

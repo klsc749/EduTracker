@@ -4,17 +4,21 @@ import component.IconButton;
 import component.ScrollableActivityCardPagination;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import service.ActivityService;
+import model.Activity;
+
+import java.util.function.Consumer;
 
 
 public class Home extends Application {
 
     private BorderPane root;
+    private ScrollableActivityCardPagination scrollableActivityCardPagination;
 
     @Override
     public void start(Stage primaryStage) {
@@ -43,11 +47,34 @@ public class Home extends Application {
         leftMenu.getChildren().add(button2);
 
         button1.setOnAction(event -> {
-            ScrollableActivityCardPagination scrollableActivityCardPagination = new ScrollableActivityCardPagination();
-            root.setCenter(scrollableActivityCardPagination);
+            setRootRight(createScrollableActivityCardPaginationIfNotExit());
         });
 
         return leftMenu;
+    }
+
+    private ScrollableActivityCardPagination createScrollableActivityCardPaginationIfNotExit() {
+        if(scrollableActivityCardPagination == null){
+            scrollableActivityCardPagination = new ScrollableActivityCardPagination();
+            scrollableActivityCardPagination.setOnActivityClicked(getOnActivitySelected());
+        }
+
+        return scrollableActivityCardPagination;
+    }
+
+    private Consumer<Activity> getOnActivitySelected(){
+        return activity -> {
+            if (activity.getType() == Activity.ActivityType.CLASS) {
+                ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
+                setRootRight(moduleInfo);
+            } else if (activity.getType() == Activity.ActivityType.EXTRA) {
+                //TODO open extra info
+            }
+        };
+    }
+
+    public void setRootRight(Node node){
+        root.setCenter(node);
     }
 
 }

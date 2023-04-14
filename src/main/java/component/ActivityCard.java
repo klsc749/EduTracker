@@ -9,15 +9,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Activity;
-import view.ModuleInfo;
 
 import java.text.SimpleDateFormat;
+import java.util.function.Consumer;
 
 public class ActivityCard extends VBox {
     private Activity activity;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    public ActivityCard(Activity activity, String imagePath, double progress, double width, double height) {
+
+    private final Consumer<Activity> onActivityClicked;
+    public ActivityCard(Activity activity, String imagePath, double progress,
+                        double width, double height, Consumer<Activity> onActivityClicked) {
         this.activity = activity;
+        this.onActivityClicked = onActivityClicked;
         initStyle(width, height);
 
         ImageView imageView = createImageView(imagePath, width);
@@ -72,13 +76,9 @@ public class ActivityCard extends VBox {
         return label;
     }
 
-    private void handleClick(MouseEvent event){
-        if(activity.getType() == Activity.ActivityType.CLASS) {
-            ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
-            getScene().setRoot(moduleInfo);
-        }else if(activity.getType() == Activity.ActivityType.EXTRA) {
-            //TODO open extra info
-        }
+    private void handleClick(MouseEvent event) {
+        if(onActivityClicked != null)
+            onActivityClicked.accept(activity);
     }
 
 }

@@ -29,6 +29,8 @@ public class Home extends Application {
         Label defaultLabel = new Label("Click an item on the left menu to display content");
         root.setCenter(defaultLabel);
 
+        setRootRight(createScrollableActivityCardPaginationIfNotExit());
+
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Main Window");
@@ -66,9 +68,7 @@ public class Home extends Application {
         return activity -> {
             if (activity.getType() == Activity.ActivityType.CLASS) {
                 ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
-                System.out.println("Open module info");
                 moduleInfo.setOnBackButtonClick(event -> {
-                    System.out.println("Back to activity card");
                     setRootRight(createScrollableActivityCardPaginationIfNotExit());
                 });
                 setRootRight(moduleInfo);

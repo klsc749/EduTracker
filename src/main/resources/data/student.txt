@@ -1,1 +1,1 @@
-{"degree":"2","email":"123@163.com","name":"WangWang","studentId":"A002"}
+{"degree":"2","email":"A002@163.com","name":"WangWang","studentId":"A002"}

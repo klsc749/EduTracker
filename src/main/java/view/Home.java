@@ -66,6 +66,11 @@ public class Home extends Application {
         return activity -> {
             if (activity.getType() == Activity.ActivityType.CLASS) {
                 ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
+                System.out.println("Open module info");
+                moduleInfo.setOnBackButtonClick(event -> {
+                    System.out.println("Back to activity card");
+                    setRootRight(createScrollableActivityCardPaginationIfNotExit());
+                });
                 setRootRight(moduleInfo);
             } else if (activity.getType() == Activity.ActivityType.EXTRA) {
                 //TODO open extra info

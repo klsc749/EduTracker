@@ -67,6 +67,6 @@ public class Activity {
     }
 
     public enum ActivityType{
-        TEACHER, CLASS;
+        EXTRA, CLASS;
     }
 }

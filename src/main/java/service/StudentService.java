@@ -1,6 +1,7 @@
 package service;
 
 import dao.StudentDao;
+import model.Student;
 
 public class StudentService {
     private StudentDao studentDao = new StudentDao();
@@ -24,5 +25,12 @@ public class StudentService {
             }
             else
                 throw new Exception();
+    }
+
+    /**
+        Get student's information
+     */
+    public Student getStudent(){
+        return studentDao.getStudentInfo();
     }
 }

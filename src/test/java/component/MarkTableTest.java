@@ -3,6 +3,7 @@ package component;
 import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.stage.Stage;
+import model.Mark;
 import model.MarkItem;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +25,7 @@ public class MarkTableTest {
         markItems.add(new MarkItem("Item 1", 80.0, 0.4));
         markItems.add(new MarkItem("Item 2", 90.0, 0.6));
 
-        markTable = new MarkTable(markItems);
+        markTable = new MarkTable((Mark) markItems);
 
         stage.setScene(new Scene(markTable));
         stage.show();

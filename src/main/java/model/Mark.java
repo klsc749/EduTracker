@@ -6,6 +6,10 @@ import java.util.List;
 public class Mark implements CalculateMark {
     List<MarkItem> markItems = new ArrayList<MarkItem>();
 
+    public Mark(List<MarkItem> markItems) {
+        this.markItems = markItems;
+    }
+
     public List<MarkItem> getMarkItems() {
         return markItems;
     }
@@ -17,6 +21,7 @@ public class Mark implements CalculateMark {
     }
 
     public double getTotalMark() {
+        totalMark = calculateMark();
         return totalMark;
     }
 

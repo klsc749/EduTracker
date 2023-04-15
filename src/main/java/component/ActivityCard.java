@@ -1,6 +1,7 @@
 package component;
 
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
@@ -9,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Activity;
+import util.ImageCache;
 
 import java.text.SimpleDateFormat;
 import java.util.function.Consumer;
@@ -24,7 +26,7 @@ public class ActivityCard extends VBox {
         this.onActivityClicked = onActivityClicked;
         initStyle(width, height);
 
-        ImageView imageView = createImageView(imagePath, width);
+        ImageView imageView = createImageView(generateImagePath(), width);
         ProgressIndicator progressIndicator = createProgressIndicator(imageView, progress);
         StackPane imageProgress = createImageProgress(imageView, progressIndicator);
         Label nameLabel = createLabel(activity.getName(), "18", "bold", "black");
@@ -32,6 +34,8 @@ public class ActivityCard extends VBox {
                 "14", "normal", "gray");
 
         setOnMouseClicked(this::handleClick);
+        setOnMouseEntered(this::handleMouseEntered);
+        setOnMouseExited(this::handleMouseExited);
 
         getChildren().addAll(imageProgress, nameLabel, semesterLabel);
     }
@@ -47,11 +51,21 @@ public class ActivityCard extends VBox {
                 "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);");
     }
 
+    private String generateImagePath(){
+        int end = 3;
+        int imageNum = Math.abs(activity.getId().hashCode()) % end + 1;
+        if(activity.getType() == Activity.ActivityType.CLASS){
+            return "image/module/image" + imageNum + ".png";
+        }else {
+            return "image/icon.png";
+        }
+    }
+
     private ImageView createImageView(String imagePath, double width) {
-        ImageView imageView = new ImageView(new Image(imagePath));
-        
+        Image image = ImageCache.getImage(imagePath);
+        ImageView imageView = new ImageView(image);
         imageView.setFitWidth(width);
-        imageView.setFitHeight(width);
+        imageView.setFitHeight(0.75 * width);
         return imageView;
     }
 
@@ -80,5 +94,22 @@ public class ActivityCard extends VBox {
         if(onActivityClicked != null)
             onActivityClicked.accept(activity);
     }
+
+    private void handleMouseEntered(MouseEvent event) {
+        setStyle("-fx-background-color: #f5f5f5; " +
+                "-fx-border-color: #cccccc; -fx-border-width: 2; " +
+                "-fx-border-radius: 10; -fx-background-radius: 10; " +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 6);");
+        setCursor(Cursor.HAND);
+    }
+
+    private void handleMouseExited(MouseEvent event) {
+        setStyle("-fx-background-color: white; " +
+                "-fx-border-color: #cccccc; -fx-border-width: 2; " +
+                "-fx-border-radius: 10; -fx-background-radius: 10; " +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);");
+        setCursor(Cursor.DEFAULT);
+    }
+
 
 }

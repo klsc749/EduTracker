@@ -147,7 +147,7 @@ public class MarkTable extends VBox {
     }
 
     private void handleSaveButtonClick(Event event) {
-        //TODO: Save the markItems
+        //TODO: Update the markItems
         System.out.println(mark.getMarkItems());
     }
 

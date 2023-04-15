@@ -2,6 +2,7 @@ package component;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -9,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DoubleStringConverter;
@@ -23,6 +25,10 @@ public class MarkTable extends VBox {
 
     private List<MarkItem> markItems;
 
+    private TextField nameTextField;
+    private TextField markTextField;
+    private TextField proportionTextField;
+
     public MarkTable(List<MarkItem> markItems) {
         this.markItems = markItems == null ? new ArrayList<>() : markItems;
         setSpacing(10);
@@ -32,15 +38,14 @@ public class MarkTable extends VBox {
         TableColumn<MarkItem, Double> proportionColumn = createProportionColumn();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
-        HBox hBox = addTextFields(nameColumn.getPrefWidth(), markColumn.getPrefWidth(), proportionColumn.getPrefWidth());
-
         table.getColumns().addAll(nameColumn, markColumn, proportionColumn);
 
         // Add columns to TableView
         ObservableList<MarkItem> observableMarkItems = FXCollections.observableArrayList(markItems);
         table.setItems(observableMarkItems);
 
-        getChildren().addAll(table, hBox);
+        BorderPane textFields = addTextFields(nameColumn.getPrefWidth(), markColumn.getPrefWidth(), proportionColumn.getPrefWidth());
+        getChildren().addAll(table, textFields);
     }
 
     private TableColumn<MarkItem, String> createNameColumn() {
@@ -76,38 +81,55 @@ public class MarkTable extends VBox {
         return proportionColumn;
     }
 
-    private HBox addTextFields(Double nameFieldWidth, Double markFieldWidth, Double proportionFieldWidth) {
-        TextField nameField = new TextField();
-        nameField.setPromptText("Mark name");
-        nameField.setMaxWidth(nameFieldWidth);
-        TextField markField = new TextField();
-        markField.setPromptText("Mark");
-        markField.setMaxWidth(markFieldWidth);
-        TextField proportionField = new TextField();
-        proportionField.setPromptText("Proportion");
-        proportionField.setMaxWidth(proportionFieldWidth);
+    private BorderPane addTextFields(Double nameFieldWidth, Double markFieldWidth, Double proportionFieldWidth) {
+        // create text fields
+        nameTextField = createTextFiled("Mark name", nameFieldWidth);
+        markTextField = createTextFiled("Mark", markFieldWidth);
+        proportionTextField = createTextFiled("Proportion", proportionFieldWidth);
 
+        //add button
         Button addButton = new Button("Add");
-        addButton.setOnAction(event -> {
-            MarkItem markItem = new MarkItem(nameField.getText(), Double.parseDouble(markField.getText()), Double.parseDouble(proportionField.getText()));
-            System.out.println(markItem);
-            table.getItems().add(markItem);
-            nameField.clear();
-            markField.clear();
-            proportionField.clear();
-        });
+        addButton.setOnAction(this::handleAddButtonClick);
+
+        //save button
         Button saveButton = new Button("Save");
-        saveButton.setOnAction(event -> {
-            //TODO: Save the markItems
-            System.out.println(markItems);
-        });
+        saveButton.setOnAction(this::handleSaveButtonClick);
 
         HBox hBox = new HBox();
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(nameField, markField, proportionField, addButton, saveButton);
+        hBox.getChildren().addAll(nameTextField, markTextField, proportionTextField, addButton);
 
-        return hBox;
+        BorderPane borderPane = new BorderPane();
+        borderPane.setRight(saveButton);
+        borderPane.setLeft(hBox);
+
+        return borderPane;
+    }
+
+    private TextField createTextFiled(String promptText, Double width){
+        TextField textField = new TextField();
+        textField.setPromptText(promptText);
+        textField.setMaxWidth(width);
+        return textField;
+    }
+
+    private void handleAddButtonClick(Event event) {
+        if (nameTextField.getText().isEmpty() || markTextField.getText().isEmpty() || proportionTextField.getText().isEmpty()) {
+            return;
+        }
+        MarkItem markItem = new MarkItem(nameTextField.getText(), Double.parseDouble(markTextField.getText()), Double.parseDouble(proportionTextField.getText()));
+        System.out.println(markItem);
+        //TODO: Add markItem
+        table.getItems().add(markItem);
+        nameTextField.clear();
+        markTextField.clear();
+        proportionTextField.clear();
+    }
+
+    private void handleSaveButtonClick(Event event) {
+        //TODO: Save the markItems
+        System.out.println(markItems);
     }
 
     private void updateMarkItemList() {

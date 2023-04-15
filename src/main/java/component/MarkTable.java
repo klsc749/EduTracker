@@ -4,16 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DoubleStringConverter;
+import model.Mark;
 import model.MarkItem;
 
 import java.util.ArrayList;
@@ -23,15 +21,20 @@ public class MarkTable extends VBox {
 
     private TableView<MarkItem> table = new TableView<>();
 
-    private List<MarkItem> markItems;
+    private Mark mark;
 
+    private Label totalMarkLabel;
     private TextField nameTextField;
     private TextField markTextField;
     private TextField proportionTextField;
 
-    public MarkTable(List<MarkItem> markItems) {
-        this.markItems = markItems == null ? new ArrayList<>() : markItems;
+    public MarkTable(Mark mark) {
+        this.mark = mark;
+        if(mark.getMarkItems() == null) {
+            mark.setMarkItems(new ArrayList<>());
+        }
         setSpacing(10);
+        setAlignment(Pos.CENTER);
         table.setEditable(true);
         TableColumn<MarkItem, String> nameColumn = createNameColumn();
         TableColumn<MarkItem, Double> markColumn = createMarkColumn();
@@ -41,11 +44,13 @@ public class MarkTable extends VBox {
         table.getColumns().addAll(nameColumn, markColumn, proportionColumn);
 
         // Add columns to TableView
-        ObservableList<MarkItem> observableMarkItems = FXCollections.observableArrayList(markItems);
+        ObservableList<MarkItem> observableMarkItems = FXCollections.observableArrayList(mark.getMarkItems());
         table.setItems(observableMarkItems);
 
+        totalMarkLabel = createTotalMarkLabel();
+
         BorderPane textFields = addTextFields(nameColumn.getPrefWidth(), markColumn.getPrefWidth(), proportionColumn.getPrefWidth());
-        getChildren().addAll(table, textFields);
+        getChildren().addAll(table, totalMarkLabel, textFields);
     }
 
     private TableColumn<MarkItem, String> createNameColumn() {
@@ -79,6 +84,16 @@ public class MarkTable extends VBox {
             updateMarkItemList();
         });
         return proportionColumn;
+    }
+
+    public Label createTotalMarkLabel() {
+        Label label = new Label("Total mark: " + mark.getTotalMark());
+        label.setStyle("-fx-font-size: 16;");
+        return label;
+    }
+
+    public void updateTotalMarkLabel() {
+        totalMarkLabel.setText("Total mark: " + mark.getTotalMark());
     }
 
     private BorderPane addTextFields(Double nameFieldWidth, Double markFieldWidth, Double proportionFieldWidth) {
@@ -121,19 +136,24 @@ public class MarkTable extends VBox {
         MarkItem markItem = new MarkItem(nameTextField.getText(), Double.parseDouble(markTextField.getText()), Double.parseDouble(proportionTextField.getText()));
         System.out.println(markItem);
         //TODO: Add markItem
+        mark.getMarkItems().add(markItem);
         table.getItems().add(markItem);
         nameTextField.clear();
         markTextField.clear();
         proportionTextField.clear();
+
+        //update total mark
+        updateTotalMarkLabel();
     }
 
     private void handleSaveButtonClick(Event event) {
         //TODO: Save the markItems
-        System.out.println(markItems);
+        System.out.println(mark.getMarkItems());
     }
 
     private void updateMarkItemList() {
-        markItems.clear();
-        markItems.addAll(table.getItems());
+        mark.getMarkItems().clear();
+        mark.getMarkItems().addAll(table.getItems());
+        updateTotalMarkLabel();
     }
 }

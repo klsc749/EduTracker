@@ -65,7 +65,7 @@ public class ActivityCard extends VBox {
         Image image = ImageCache.getImage(imagePath);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(width);
-        imageView.setFitHeight(width);
+        imageView.setFitHeight(0.75 * width);
         return imageView;
     }
 

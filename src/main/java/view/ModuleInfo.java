@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.Activity;
 import model.MarkItem;
 
 import java.util.ArrayList;
@@ -21,18 +22,22 @@ public class ModuleInfo extends  VBox {
 
     private MarkTable markTable;
 
+    private Activity activity;
 
-    public ModuleInfo(String activityName) {
+
+    public ModuleInfo(Activity activity) {
+        this.activity = activity;
         setSpacing(10);
         setAlignment(Pos.CENTER);
 
-        Label titleLabel = new Label("Details for " + activityName);
+        Label titleLabel = new Label("Details for " + activity.getName());
         titleLabel.setStyle("-fx-font-size: 24;");
 
         backButton = new Button("Go Back");
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.TOP_LEFT);
         hBox.getChildren().add(backButton);
+        //TODO: Read MarkItems from activity
         List<MarkItem> markItems = new ArrayList<>();
         markItems.add(new MarkItem("Item 1", 80.0, 0.4));
         markItems.add(new MarkItem("Item 2", 90.0, 0.6));

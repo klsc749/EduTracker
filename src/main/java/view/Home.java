@@ -67,7 +67,7 @@ public class Home extends Application {
     private Consumer<Activity> getOnActivitySelected(){
         return activity -> {
             if (activity.getType() == Activity.ActivityType.CLASS) {
-                ModuleInfo moduleInfo = new ModuleInfo(activity.getName());
+                ModuleInfo moduleInfo = new ModuleInfo(activity);
                 moduleInfo.setOnBackButtonClick(event -> {
                     setRootRight(createScrollableActivityCardPaginationIfNotExit());
                 });

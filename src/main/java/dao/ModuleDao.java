@@ -2,6 +2,8 @@ package dao;
 
 import com.alibaba.fastjson2.JSONObject;
 import model.Activity;
+import model.Mark;
+import model.MarkItem;
 import model.Module;
 
 import java.io.*;
@@ -96,11 +98,7 @@ public class ModuleDao extends DAO {
      * @param id The module to delete
      */
     public void deleteModuleById(String id){
-        // The file to modify
         File file = new File(storeDirectory);
-
-        // The line to delete
-        String lineToDelete = null;
 
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
@@ -109,7 +107,6 @@ public class ModuleDao extends DAO {
         BufferedWriter bufferedWriter = null;
 
         try {
-            // Open the original file for reading
             fileReader = new FileReader(storeDirectory);
             bufferedReader = new BufferedReader(fileReader);
 
@@ -119,7 +116,6 @@ public class ModuleDao extends DAO {
             fileWriter = new FileWriter(tempFile);
             bufferedWriter = new BufferedWriter(fileWriter);
 
-            // Copy the lines from the original file to the temporary file
             String currentLine;
             while ((currentLine = bufferedReader.readLine()) != null) {
                 Module module = parseLine(currentLine, Module.class);
@@ -209,4 +205,23 @@ public class ModuleDao extends DAO {
         }
     }
 
+    public void addMarkItem(String id, MarkItem markItem){
+        Module module = getModuleById(id);
+        Mark mark = module.getMark();
+        mark.getMarkItems().add(markItem);
+
+        updateModuleById(id,module);
+    }
+
+    public void updateMarkItem(String module_id,String markItem_name, MarkItem markItemUpdated){
+        Module module = getModuleById(module_id);
+        List<MarkItem> markItems = module.getMark().getMarkItems();
+
+        for (MarkItem markItem : markItems) {
+            if(markItem.getName() == markItem_name){
+                int index = markItems.indexOf(markItem);
+                markItems.set(index, markItemUpdated);
+            }
+        }
+    }
 }

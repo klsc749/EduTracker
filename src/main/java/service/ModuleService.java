@@ -1,6 +1,7 @@
 package service;
 
 import dao.ModuleDao;
+import model.MarkItem;
 import model.Module;
 
 public class ModuleService {
@@ -10,5 +11,11 @@ public class ModuleService {
 
     public Module getModuleById (String id) { return moduleDao.getModuleById(id); }
 
-    public void deleteModuleBYId(String id) { moduleDao.deleteModuleById(id);}
+    public void deleteModuleById(String id) { moduleDao.deleteModuleById(id);}
+
+    public void updateModuleById(String id, Module moduleUpdated){ moduleDao.updateModuleById(id,moduleUpdated);}
+
+    public void addMarkItem(String id, MarkItem markItem){moduleDao.addMarkItem(id,markItem);}
+
+    public void updateMarkItem(String module_id,String mark_name, MarkItem markItem){ }
 }

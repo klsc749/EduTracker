@@ -1,8 +1,17 @@
 package model;
 
 public class People {
-    String name;
-    String email;
+    private String name;
+    private String email;
+
+    public People(){
+
+    }
+
+    public People(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 
     public String getName() {
         return name;
@@ -18,5 +27,10 @@ public class People {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Email: " + email;
     }
 }

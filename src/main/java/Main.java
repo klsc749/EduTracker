@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import view.Home;
+import view.PersonInfo;
 
 public class Main {
     public static void main(String[] args) {

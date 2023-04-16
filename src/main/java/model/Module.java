@@ -8,6 +8,13 @@ public class Module extends Activity{
     String degree;
     List<String> skillTags = new ArrayList<String>();
 
+    double totalMark;
+    public Module(){
+
+    }
+
+
+
     public Mark getMark() {
         return mark;
     }

@@ -5,6 +5,12 @@ public class MarkItem implements CalculateMark {
     double mark;
     double proportion;
 
+    public MarkItem(String name, double mark, double proportion) {
+        this.name = name;
+        this.mark = mark;
+        this.proportion = proportion;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,5 +37,9 @@ public class MarkItem implements CalculateMark {
 
     public double calculateMark() {
         return mark * proportion;
+    }
+
+    public String toString() {
+        return name + " " + mark + " " + proportion;
     }
 }

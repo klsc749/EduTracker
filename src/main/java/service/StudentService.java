@@ -26,4 +26,11 @@ public class StudentService {
             else
                 throw new Exception();
     }
+
+    /**
+        Get student's information
+     */
+    public Student getStudent(){
+        return studentDao.getStudentInfo();
+    }
 }

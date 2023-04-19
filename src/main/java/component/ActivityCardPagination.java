@@ -1,8 +1,8 @@
 package component;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.FlowPane;
@@ -15,13 +15,19 @@ import service.ActivityService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ActivityCardPagination extends FlowPane {
     private Pagination pagination;
     private final int itemsPerPage = 12;
     private List<Activity> activities;
+    private final double cardWidth;
+    private final double cardHeight;
+    private final IntegerProperty columns = new SimpleIntegerProperty(1);
 
     private final ActivityService activityService = new ActivityService();
+
+    private Consumer<Activity> onActivityClicked;
 
     public ActivityCardPagination() {
         // get all activities from DB
@@ -37,6 +43,23 @@ public class ActivityCardPagination extends FlowPane {
         VBox container = new VBox();
         container.getChildren().add(pagination);
         getChildren().add(container);
+
+        // Get screen size
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+
+        // Calculate card width and height based on screen size
+        cardWidth = screenWidth * 0.15; // Adjust this factor as needed
+        cardHeight = screenHeight * 0.25; // Adjust this factor as needed
+
+        parentProperty().addListener((obs, oldParent, newParent) -> {
+            if (newParent != null) {
+                newParent.layoutBoundsProperty().addListener((obs2, oldBounds, newBounds) -> {
+                    updateColumns();
+                });
+            }
+        });
+
     }
 
     private GridPane createPage(int pageIndex) {
@@ -45,38 +68,27 @@ public class ActivityCardPagination extends FlowPane {
         grid.setVgap(10);
         grid.setPadding(new Insets(10, 10, 10, 10));
 
-        // Get screen size
-        double screenWidth = Screen.getPrimary().getBounds().getWidth();
-        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+        // Add the cards to the grid and populate the grid
+        Platform.runLater(() -> {
+            updateGrid(grid, pageIndex, columns.get(), cardWidth, cardHeight);
+        });
 
-        // Calculate card width and height based on screen size
-        double cardWidth = screenWidth * 0.1; // Adjust this factor as needed
-        double cardHeight = screenHeight * 0.25; // Adjust this factor as needed
-
-        // Get the number of columns based on the card width
-        IntegerBinding columns = getColumns(cardWidth);
-
-        // Listen for changes to the number of columns and update the grid accordingly
         columns.addListener((obs, oldVal, newVal) -> {
             // Clear the grid and re-add the cards with the updated columns
             grid.getChildren().clear();
             updateGrid(grid, pageIndex, newVal.intValue(), cardWidth, cardHeight);
         });
 
-        // Add the cards to the grid and populate the grid
-        Platform.runLater(() -> {
-            updateGrid(grid, pageIndex, columns.get(), cardWidth, cardHeight);
-        });
-
         return grid;
     }
-    
-    private IntegerBinding getColumns(double cardWidth) {
-        return Bindings.createIntegerBinding(() -> {
-            int windowWidth = (int) getScene().getWindow().getWidth();
-            int numCardsPerRow = windowWidth / (int) cardWidth;
-            return Math.max(numCardsPerRow, 1);
-        }, getScene().getWindow().widthProperty());
+
+    private void updateColumns() {
+        javafx.scene.Node parent = getParent();
+        if (parent != null) {
+            int containerWidth = (int) parent.getLayoutBounds().getWidth();
+            int numCardsPerRow = containerWidth / (int) cardWidth;
+            columns.set(Math.max(numCardsPerRow, 1));
+        }
     }
 
     private final Map<String, ActivityCard> activityCardCache = new HashMap<>();
@@ -114,11 +126,15 @@ public class ActivityCardPagination extends FlowPane {
         if (activityCardCache.containsKey(activityId)) {
             return activityCardCache.get(activityId);
         }
-        
+
         // Otherwise create a new activity card and cache it
-        ActivityCard activityCard = new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight);
+        ActivityCard activityCard = new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight, onActivityClicked);
         activityCardCache.put(activityId, activityCard);
         return activityCard;
+    }
+
+    public void setOnActivityClicked(Consumer<Activity> onActivityClicked) {
+        this.onActivityClicked = onActivityClicked;
     }
 
 }

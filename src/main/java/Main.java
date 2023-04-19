@@ -1,8 +1,9 @@
 import javafx.application.Application;
-import view.DashBoardView;
+import view.Home;
+import view.PersonInfo;
 
 public class Main {
     public static void main(String[] args) {
-        Application.launch(DashBoardView.class, args);
+        Application.launch(Home.class, args);
     }
 }

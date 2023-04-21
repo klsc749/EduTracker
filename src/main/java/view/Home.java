@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Activity;
+import util.GlobalExceptionHandler;
 
 import java.util.function.Consumer;
 
@@ -22,6 +23,7 @@ public class Home extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         root = new BorderPane();
         VBox leftMenu = createLeftMenu();
         root.setLeft(leftMenu);

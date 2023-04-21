@@ -134,7 +134,7 @@ public class MarkTable extends VBox {
             throw new RuntimeException("Please fill all the fields");
         }
         if(Double.parseDouble(proportionTextField.getText()) > 1.0) {
-            throw new RuntimeException("Proportion cannot be greater than 100");
+            throw new RuntimeException("Proportion cannot be greater than 1");
         }
         if(Double.parseDouble(markTextField.getText()) < 0.0) {
             throw new RuntimeException("Mark cannot be less than 0");

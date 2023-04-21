@@ -21,7 +21,7 @@ public class OnActivitySelectedHandler implements Consumer<Activity> {
             });
             home.setRootRight(moduleInfo);
         } else if (activity.getType() == Activity.ActivityType.EXTRA) {
-            //TODO open extra info
+            //TODO ZPY open extra info
         }
     }
 }

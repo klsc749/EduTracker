@@ -1,7 +1,9 @@
 package view;
 
 import component.IconButton;
+import component.LeftMenu;
 import component.ScrollableActivityCardPagination;
+import handler.OnActivitySelectedHandler;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,6 +22,7 @@ public class Home extends Application {
 
     private BorderPane root;
     private ScrollableActivityCardPagination scrollableActivityCardPagination;
+    private LeftMenu leftMenu;
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,12 +42,12 @@ public class Home extends Application {
         primaryStage.show();
     }
 
+    /*
+    * Create the left menu
+     */
     private VBox createLeftMenu() {
-        VBox leftMenu = new VBox(10);
-        leftMenu.setAlignment(Pos.CENTER);
-        leftMenu.setPrefWidth(50);
-        leftMenu.setStyle("-fx-background-color: rgba(245, 245, 245, 0.95); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0.2, 2, 2);");
-
+        leftMenu = new LeftMenu();
+        //add buttons to left menu
         IconButton button1 = new IconButton("image/dashboard-default.png", "image/dashboard-hover.png", "Dashboard", 40);
         IconButton button2 = new IconButton("image/personal-default.png", "image/personal-hover.png", "Personal Info", 40);
         leftMenu.getChildren().add(button1);
@@ -57,29 +60,22 @@ public class Home extends Application {
         return leftMenu;
     }
 
-    private ScrollableActivityCardPagination createScrollableActivityCardPaginationIfNotExit() {
+
+    /*
+    * Create a new ScrollableActivityCardPagination if it does not exist
+     */
+    public ScrollableActivityCardPagination createScrollableActivityCardPaginationIfNotExit() {
         if(scrollableActivityCardPagination == null){
             scrollableActivityCardPagination = new ScrollableActivityCardPagination();
-            scrollableActivityCardPagination.setOnActivityClicked(getOnActivitySelected());
+            scrollableActivityCardPagination.setOnActivityClicked(new OnActivitySelectedHandler(this));
         }
 
         return scrollableActivityCardPagination;
     }
 
-    private Consumer<Activity> getOnActivitySelected(){
-        return activity -> {
-            if (activity.getType() == Activity.ActivityType.CLASS) {
-                ModuleInfo moduleInfo = new ModuleInfo(activity);
-                moduleInfo.setOnBackButtonClick(event -> {
-                    setRootRight(createScrollableActivityCardPaginationIfNotExit());
-                });
-                setRootRight(moduleInfo);
-            } else if (activity.getType() == Activity.ActivityType.EXTRA) {
-                //TODO open extra info
-            }
-        };
-    }
-
+    /*
+    * Set the right node of the root
+     */
     public void setRootRight(Node node){
         root.setCenter(node);
     }

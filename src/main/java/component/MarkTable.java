@@ -133,6 +133,12 @@ public class MarkTable extends VBox {
         if (nameTextField.getText().isEmpty() || markTextField.getText().isEmpty() || proportionTextField.getText().isEmpty()) {
             throw new RuntimeException("Please fill all the fields");
         }
+        if(Double.parseDouble(proportionTextField.getText()) > 1.0) {
+            throw new RuntimeException("Proportion cannot be greater than 100");
+        }
+        if(Double.parseDouble(markTextField.getText()) < 0.0) {
+            throw new RuntimeException("Mark cannot be less than 0");
+        }
         MarkItem markItem = new MarkItem(nameTextField.getText(), Double.parseDouble(markTextField.getText()), Double.parseDouble(proportionTextField.getText()));
         System.out.println(markItem);
         //TODO: Add markItem

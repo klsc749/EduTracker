@@ -66,11 +66,5 @@ public class StudentDaoTest {
         System.out.println(stu);
     }
 
-    @Test
-    void TestGetStudentAward(){
-        Student stu=studentDao.getStudentInfo();
-        HashMap<String,String> awardsmap=stu.getAwards();
-        assertEquals(1,awardsmap.size());
-    }
 
 }

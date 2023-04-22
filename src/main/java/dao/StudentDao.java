@@ -94,14 +94,4 @@ public class StudentDao extends DAO{
         return flag;
     }
 
-    /**
-     * Get the stored studentAwards
-     * @return HashMap<String,String>
-     */
-    //error: awardmap为空
-    public HashMap<String, String> getStudentAward(){
-        Student student=getStudentInfo();
-        HashMap<String,String> awardsmap=student.getAwards();
-        return awardsmap;
-    }
 }

@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class StudentDao extends DAO{
     private final String storeDirectory = "src/main/resources/data/student.txt";
@@ -37,6 +38,7 @@ public class StudentDao extends DAO{
      *
      * @return The activity with the given ID
      */
+    //TODO: hashmap award 读取为空
     public Student getStudentInfo() {
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
@@ -71,9 +73,6 @@ public class StudentDao extends DAO{
             flag=false;
         else if(email.indexOf("@")>email.indexOf("."))
             flag=false;
-        else if(!(email.charAt(email.length()-4)=='.' && email.charAt(email.length()-3)=='c'
-                && email.charAt(email.length()-2)=='o' && email.charAt(email.length()-1)=='m'))
-            flag=false;
         else{
             for(int i=0;i<email.length();i++){
                 if(email.charAt(i)>='a'&&email.charAt(i)<='z'
@@ -94,5 +93,16 @@ public class StudentDao extends DAO{
             throw new Exception("illegal email!");
         }
         return flag;
+    }
+
+    /**
+     * Get the stored studentAwards
+     * @return HashMap<String,String>
+     */
+    //error: awardmap为空
+    public HashMap<String, String> getStudentAward(){
+        Student student=getStudentInfo();
+        HashMap<String,String> awardsmap=student.getAwards();
+        return awardsmap;
     }
 }

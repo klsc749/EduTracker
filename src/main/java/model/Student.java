@@ -1,9 +1,16 @@
 package model;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Student extends People {
     private String studentId;
     private String degree;
+    private HashMap<String, String> awards;
 
     public Student(){
 
@@ -31,9 +38,17 @@ public class Student extends People {
         this.degree = degree;
     }
 
+    public void setAwards(String time,String award){
+        awards.put(time,award);
+    }
+
+    public HashMap<String, String> getAwards() {
+        return awards;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + ", Student ID: " + studentId + ", Degree: " + degree;
+        return super.toString() + ", Student ID: " + studentId + ", Degree: " + degree+",Awards: "+awards;
     }
 }
 

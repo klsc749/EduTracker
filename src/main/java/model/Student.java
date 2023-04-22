@@ -38,12 +38,12 @@ public class Student extends People {
         this.degree = degree;
     }
 
-    public void setAwards(String time,String award){
-        awards.put(time,award);
-    }
-
     public HashMap<String, String> getAwards() {
         return awards;
+    }
+
+    public void setAwards(HashMap<String, String> awards) {
+        this.awards = awards;
     }
 
     @Override

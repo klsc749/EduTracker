@@ -59,7 +59,6 @@ public class StudentDaoTest {
     }
 
 
-    //TODO: hashmap award 读取测试
     @Test
     void TestGetStudentInfo(){
         Student stu=studentDao.getStudentInfo();

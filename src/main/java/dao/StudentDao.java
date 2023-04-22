@@ -38,7 +38,6 @@ public class StudentDao extends DAO{
      *
      * @return The activity with the given ID
      */
-    //TODO: hashmap award 读取为空
     public Student getStudentInfo() {
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;

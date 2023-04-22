@@ -29,6 +29,8 @@ public class ActivityCardPagination extends FlowPane {
 
     private Consumer<Activity> onActivityClicked;
 
+    private final AddActivityCard addActivityCard = new AddActivityCard();
+
     public ActivityCardPagination() {
         // get all activities from DB
         this.activities = activityService.getAllActivities();
@@ -91,9 +93,9 @@ public class ActivityCardPagination extends FlowPane {
 
     private void updateGrid(GridPane grid, int pageIndex, int columns, double cardWidth, double cardHeight) {
         int pageStart = pageIndex * itemsPerPage;
-        int pageEnd = Math.min(pageStart + itemsPerPage, activities.size());
+        int pageEnd = Math.min(pageStart + itemsPerPage, activities.size()) - 1;
 
-        for (int i = pageStart; i < pageEnd; i++) {
+        for (int i = pageStart; i <= pageEnd; i++) {
             Activity activity = activities.get(i);
             String activityId = activity.getId();
 
@@ -105,15 +107,24 @@ public class ActivityCardPagination extends FlowPane {
 
             attachActivityCardToGrid(grid, activityCard, column, row);
         }
+
+        int column = (pageEnd - pageStart + 1) % columns;
+        int row = (pageEnd - pageStart + 1) / columns;
+
+        if(addActivityCard.getParent() != null) {
+            ((GridPane) addActivityCard.getParent()).getChildren().remove(addActivityCard);
+        }
+        grid.add(addActivityCard, column, row);
+
     }
 
     private void attachActivityCardToGrid(GridPane grid, ActivityCard activityCard, int column, int row) {
-        // remove the activity card from its parent gridpane
+        // remove the activity card from its parent grid pane
         if (activityCard.getParent() != null) {
             ((GridPane) activityCard.getParent()).getChildren().remove(activityCard);
         }
 
-        // add the activity card to the new gridpane
+        // add the activity card to the new grid pane
         grid.add(activityCard, column, row);
     }
 
@@ -131,6 +142,23 @@ public class ActivityCardPagination extends FlowPane {
 
     public void setOnActivityClicked(Consumer<Activity> onActivityClicked) {
         this.onActivityClicked = onActivityClicked;
+    }
+
+    //TODO: test after implementing the add activity card to db
+    //TODO: to call it to the add button in the add activity card
+    public void refresh() {
+        // get all activities from DB
+        this.activities = activityService.getAllActivities();
+
+        // calculate total pages
+        int totalPages = (int) Math.ceil((double) activities.size() / itemsPerPage);
+        pagination.setPageCount(totalPages);
+
+        // set pagination
+        pagination.setPageFactory(this::createPage);
+
+        // Clear the cache
+        activityCardCache.clear();
     }
 
 }

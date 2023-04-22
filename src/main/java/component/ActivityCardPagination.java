@@ -44,13 +44,9 @@ public class ActivityCardPagination extends FlowPane {
         container.getChildren().add(pagination);
         getChildren().add(container);
 
-        // Get screen size
-        double screenWidth = Screen.getPrimary().getBounds().getWidth();
-        double screenHeight = Screen.getPrimary().getBounds().getHeight();
-
         // Calculate card width and height based on screen size
-        cardWidth = screenWidth * 0.15; // Adjust this factor as needed
-        cardHeight = screenHeight * 0.25; // Adjust this factor as needed
+        cardWidth = 160;
+        cardHeight = 200;
 
         parentProperty().addListener((obs, oldParent, newParent) -> {
             if (newParent != null) {

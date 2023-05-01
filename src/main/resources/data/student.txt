@@ -1,1 +1,1 @@
-{"awards":{"2021-02-02":"First Class Scholarship","2020-01-01":"Award11"},"degree":"2","email":"A002@163.com","name":"WangWang","studentId":"A002"}
+{"awards":{"2021-02-02":"First Class Scholarship","2020-01-01":"Award11","2021-02-03":"口算大王","2021-02-04":"大旺八百讲"},"degree":"2","email":"1172350484@qq.com","name":"WangWang","studentId":"A002"}

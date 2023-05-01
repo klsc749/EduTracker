@@ -3,6 +3,8 @@ package service;
 import dao.StudentDao;
 import model.Student;
 
+import javafx.scene.image.Image;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -114,6 +116,14 @@ public class StudentService {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Read Student's image
+     * @return image
+     */
+    public Image loadStudentImage() {
+        return studentDao.loadImage();
     }
 
     //TODO: Add GetAwardContentByTimePeriod

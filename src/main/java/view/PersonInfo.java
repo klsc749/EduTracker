@@ -1,89 +1,102 @@
 package view;
 
-import component.StudentForm;
-import dao.StudentDao;
-import javafx.application.Application;
+import component.AwardsListPane;
+import component.BasicInfoPane;
+import component.ChangeEmailButton;
+import component.PhotoPane;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Student;
 import service.StudentService;
 
-public class PersonInfo extends Application {
+public class PersonInfo extends VBox {
 
-    StudentService sv = new StudentService();
+    private BasicInfoPane basicInfoPane;
+    private AwardsListPane awardsListPane;
+    private ChangeEmailButton changeEmailButton;
+    private PhotoPane photoPane;
+    private StudentService studentService;
 
-    public static void main(String[] args) {
-        launch(args);
+    public PersonInfo() {
+        initComponents();
+        setSpacing(10);
+        setPadding(new Insets(10, 10, 10, 10));
+        initialize();
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("学生个人信息管理");
+    private void initComponents() {
+        studentService = new StudentService();
+        Student student = studentService.getStudent();
 
-        // 创建表格
-        TableView<Student> table = createStudentTable();
-        ObservableList<Student> data = FXCollections.observableArrayList();
-        table.setItems(data);
+        basicInfoPane = new BasicInfoPane(student.getName(), student.getEmail());
+        awardsListPane = new AwardsListPane(FXCollections.observableArrayList(studentService.GetAllAwardContents()));
+        changeEmailButton = new ChangeEmailButton("更改邮箱");
+        Image image = studentService.loadStudentImage();
+        photoPane = new PhotoPane(image);
 
-        // 初始化学生数据
-        initStudentData(data);
+        HBox mainLayout = new HBox();
+        mainLayout.setSpacing(10);
 
-        // 创建输入框和按钮
-        StudentForm form = new StudentForm();
-        form.setOnUpdateButtonClick(event -> {
-            if (!data.isEmpty()) {
-                Student student = data.get(0);
-                student.setEmail(form.getEmailInput());
-                table.refresh(); // 立即更新表格中的信息
+        VBox leftVBox = new VBox();
+        leftVBox.getChildren().addAll(basicInfoPane, new Label("奖项："), awardsListPane, changeEmailButton);
+
+        mainLayout.getChildren().addAll(leftVBox, photoPane);
+
+        getChildren().add(mainLayout);
+
+        changeEmailButton.setOnAction(event -> showEmailDialog());
+    }
+
+    private void initialize() {
+        // Nothing to do here in this case.
+    }
+
+    private void showEmailDialog() {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("更改邮箱");
+        dialog.setHeaderText("请输入新的电子邮件地址");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField newEmailField = new TextField();
+        grid.add(new Label("新邮箱："), 0, 0);
+        grid.add(newEmailField, 1, 0);
+
+        dialog.getDialogPane().setContent(grid);
+
+        ButtonType submitButtonType = new ButtonType("提交", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(submitButtonType, ButtonType.CANCEL);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == submitButtonType) {
+                return newEmailField.getText();
             }
+            return null;
         });
 
-        // 布局
-        VBox root = new VBox(10, table, form);
-        root.setPadding(new Insets(10));
-
-        primaryStage.setScene(new Scene(root, 600, 300));
-        primaryStage.show();
+        dialog.showAndWait().ifPresent(newEmail -> {
+            try {
+                studentService.updateEmail(newEmail);
+                basicInfoPane.setEmail(newEmail);
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "邮箱更新失败，请检查输入");
+            }
+        });
     }
 
-    private TableView<Student> createStudentTable() {
-        TableView<Student> table = new TableView<>();
-
-        TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.setPrefWidth(150);
-
-        TableColumn<Student, String> idColumn = new TableColumn<>("StudentId");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("studentId"));
-
-        TableColumn<Student, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        emailColumn.setPrefWidth(150);
-
-        TableColumn<Student, String> degreeColumn = new TableColumn<>("Degree");
-        degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-
-        // ... 更多列 ...
-
-        table.getColumns().addAll(nameColumn, idColumn,emailColumn, degreeColumn);
-
-        return table;
-    }
-
-    private void initStudentData(ObservableList<Student> data) {
-        // 创建一个学生对象
-        Student student = sv.getStudent();
-
-        // 添加学生对象到数据列表
-        data.add(student);
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle("错误");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
-
-

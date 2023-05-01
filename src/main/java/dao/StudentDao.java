@@ -3,16 +3,14 @@ package dao;
 import com.alibaba.fastjson2.JSONObject;
 
 import model.Student;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import javafx.scene.image.Image;
+import java.io.File;
+import java.io.*;
 import java.util.HashMap;
 
 public class StudentDao extends DAO{
     private final String storeDirectory = "src/main/resources/data/student.txt";
-
+    private final String photoDirectory = "src/main/resources/image/student/photo.jpg";
     /**
      * Save the given student_information to the store.
      *
@@ -92,6 +90,17 @@ public class StudentDao extends DAO{
             throw new Exception("illegal email!");
         }
         return flag;
+    }
+
+    public Image loadImage() {
+        Image image;
+        File imageFile = new File(photoDirectory);
+        if (imageFile.exists()) {
+            image = new Image(imageFile.toURI().toString());
+        } else {
+            image = new Image("default_photo.jpg"); // 加载默认图像
+        }
+        return image;
     }
 
 }

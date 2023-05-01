@@ -3,6 +3,8 @@ package dao;
 import model.Student;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentDaoTest {
@@ -26,6 +28,8 @@ public class StudentDaoTest {
         String email1="123Aa@163.com";
         assertEquals(true,studentDao.CheckEmailLegal(email1));
 
+        String email5="123123@bupt.edu.cn";
+        assertEquals(true,studentDao.CheckEmailLegal(email5));
 
         try{
             String email2="!!!@163.com";
@@ -52,9 +56,15 @@ public class StudentDaoTest {
             thrown=true;
         }
         assertTrue(thrown);
-
-
-
     }
+
+
+    @Test
+    void TestGetStudentInfo(){
+        Student stu=studentDao.getStudentInfo();
+        assertNotNull(stu);
+        System.out.println(stu);
+    }
+
 
 }

@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ExtraCurriculum;
 
+import java.util.ArrayList;
+
 public class ExtraCurriculumTable extends VBox {
 
     private TableView<ExtraCurriculum> table = new TableView<>();
@@ -22,10 +24,11 @@ public class ExtraCurriculumTable extends VBox {
 
     private ExtraCurriculum extraCurriculum;
 
-    public void setExtraCurriculum(ExtraCurriculum extraCurriculum) {
+    public ExtraCurriculumTable(ExtraCurriculum extraCurriculum) {
         this.extraCurriculum = extraCurriculum;
-    }
-    public ExtraCurriculumTable() {
+        if(extraCurriculum.getExtraCurriculumItems() == null) {
+            extraCurriculum.setExtraCurriculumItems(new ArrayList<>());
+        }
         setSpacing(10);
         setAlignment(Pos.CENTER);
         table.setEditable(true);
@@ -109,5 +112,10 @@ public class ExtraCurriculumTable extends VBox {
         table.getItems().add(item);
         nameTextField.clear();
         contentTextField.clear();
+    }
+
+    private void handleSaveButtonClick(Event event) {
+        //TODO: Update the markItems
+        System.out.println(extraCurriculum.getExtraCurriculumItems());
     }
 }

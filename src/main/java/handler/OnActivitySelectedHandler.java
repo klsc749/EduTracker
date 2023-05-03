@@ -1,5 +1,6 @@
 package handler;
 import model.Activity;
+import model.ExtraCurriculum;
 import view.Home;
 import view.ModuleInfo;
 
@@ -12,16 +13,22 @@ public class OnActivitySelectedHandler implements Consumer<Activity> {
         this.home = home;
     }
 
-    @Override
-    public void accept(Activity activity) {
+    //@Override
+    public void accept(@org.jetbrains.annotations.NotNull Activity activity) {
         if (activity.getType() == Activity.ActivityType.CLASS) {
             ModuleInfo moduleInfo = new ModuleInfo(activity);
             moduleInfo.setOnBackButtonClick(event -> {
                 home.setRootRight(home.createScrollableActivityCardPaginationIfNotExit());
             });
             home.setRootRight(moduleInfo);
-        } else if (activity.getType() == Activity.ActivityType.EXTRA) {
+        }
+        else if(activity.getType() == Activity.ActivityType.EXTRA) {
             //TODO ZPY open extra info
+            ModuleInfo moduleInfo = new ModuleInfo((ExtraCurriculum) activity);
+            moduleInfo.setOnBackButtonClick(event -> {
+                home.setRootRight(home.createScrollableActivityCardPaginationIfNotExit());
+            });
+            home.setRootRight(moduleInfo);
         }
     }
 }

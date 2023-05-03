@@ -10,6 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.ExtraCurriculum;
+import model.ExtraCurriculumItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExtraCurriculumInfo extends BorderPane {
     private Button backButton;
@@ -55,12 +59,12 @@ public class ExtraCurriculumInfo extends BorderPane {
     }
 
     private ExtraCurriculumTable createExtraCurriculumTable() {
-        ExtraCurriculumTable extraCurriculumTable = new ExtraCurriculumTable();
-        extraCurriculumTable.setExtraCurriculum(extraCurriculum);
+        //TODO: Read ExtraCurriculumItems from activity
+        List<ExtraCurriculumItem> extraCurriculumItems = new ArrayList<>();
+        ExtraCurriculum extraCurriculum = new ExtraCurriculum(extraCurriculumItems);
+        ExtraCurriculumTable extraCurriculumTable = new ExtraCurriculumTable(extraCurriculum);
         return extraCurriculumTable;
     }
-
-
 
     private Button createBackButton() {
         Button backButton = new Button("Go Back");

@@ -4,6 +4,8 @@ import com.alibaba.fastjson2.JSONObject;
 
 import model.Student;
 import javafx.scene.image.Image;
+
+import java.awt.*;
 import java.io.File;
 import java.io.*;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.HashMap;
 public class StudentDao extends DAO{
     private final String storeDirectory = "src/main/resources/data/student.txt";
     private final String photoDirectory = "src/main/resources/image/student/photo.jpg";
+    private final String PSDirectory="src/main/resources/data/PS.txt";
     /**
      * Save the given student_information to the store.
      *
@@ -102,5 +105,55 @@ public class StudentDao extends DAO{
         }
         return image;
     }
+
+    /**
+     * Modify content to the PS with the input in TextArea from GUI
+     * @param newContent
+     * @return
+     */
+    public String ModifyContentToPS(String newContent){
+        FileWriter fileWriter=null;
+        BufferedWriter bufferedWriter=null;
+        try{
+            fileWriter=new FileWriter(PSDirectory);
+            bufferedWriter=new BufferedWriter(fileWriter);
+            bufferedWriter.write(newContent);
+            bufferedWriter.close();
+            fileWriter.close();
+            return newContent;
+        }catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    /**
+     * Read from PS.txt
+     * @return String content
+     */
+
+    public String loadPS(){
+        String content="";
+        FileReader fileReader=null;
+        BufferedReader bufferedReader=null;
+
+        try{
+            fileReader=new FileReader(PSDirectory);
+            bufferedReader=new BufferedReader(fileReader);
+            String line="";
+            while((line=bufferedReader.readLine())!=null){
+                content+=line+"\n";
+            }
+            bufferedReader.close();
+            fileReader.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        return content;
+    }
+
+
 
 }

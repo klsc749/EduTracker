@@ -67,4 +67,20 @@ public class StudentDaoTest {
     }
 
 
+    @Test
+    void testLoadPS(){
+        String content=studentDao.loadPS();
+        System.out.println(content);
+    }
+
+    @Test
+    void testModifyPS(){
+        String Content="Test";
+        String oldContent=studentDao.loadPS();
+        System.out.println(oldContent);
+        studentDao.ModifyContentToPS(Content);
+        String newContent=studentDao.loadPS();
+        System.out.println(newContent);
+    }
+
 }

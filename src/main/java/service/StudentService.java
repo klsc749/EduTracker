@@ -126,6 +126,19 @@ public class StudentService {
         return studentDao.loadImage();
     }
 
-    //TODO: Add GetAwardContentByTimePeriod
+
+    /**
+     * Read Student's PS
+     * @return String
+     */
+    public String loadStudentPS(){
+        return studentDao.loadPS();
+    }
+
+    public String ModifyStudnetPS(String Content){
+        String newContent=studentDao.ModifyContentToPS(Content);
+        return newContent;
+    }
+
 
 }

@@ -1,9 +1,6 @@
 package view;
 
-import component.AwardsListPane;
-import component.BasicInfoPane;
-import component.ChangeEmailButton;
-import component.PhotoPane;
+import component.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -13,6 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Student;
 import service.StudentService;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class PersonInfo extends VBox {
 
@@ -21,6 +20,7 @@ public class PersonInfo extends VBox {
     private ChangeEmailButton changeEmailButton;
     private PhotoPane photoPane;
     private StudentService studentService;
+    private TextFlow personalStatementFlow;
 
     public PersonInfo() {
         initComponents();
@@ -39,15 +39,27 @@ public class PersonInfo extends VBox {
         Image image = studentService.loadStudentImage();
         photoPane = new PhotoPane(image);
 
-        HBox mainLayout = new HBox();
-        mainLayout.setSpacing(10);
+        personalStatementFlow = new TextFlow();
+        personalStatementFlow.setPrefWidth(400); // 设置首选宽度，根据实际情况进行调整
+
+        String personalStatement = studentService.loadStudentPS();
+        Text personalStatementText = new Text(personalStatement);
+        personalStatementText.setStyle("-fx-font-size: 14px;"); // 根据实际需求设置字体大小
+
+        personalStatementFlow.getChildren().add(personalStatementText);
 
         VBox leftVBox = new VBox();
-        leftVBox.getChildren().addAll(basicInfoPane, new Label("奖项："), awardsListPane, changeEmailButton);
+        leftVBox.getChildren().addAll(basicInfoPane, new Label("奖项："), awardsListPane);
 
-        mainLayout.getChildren().addAll(leftVBox, photoPane);
+        HBox infoLayout = new HBox();
+        infoLayout.setSpacing(10);
+        infoLayout.getChildren().addAll(leftVBox, changeEmailButton);
 
-        getChildren().add(mainLayout);
+        HBox mainLayout = new HBox();
+        mainLayout.setSpacing(10);
+        mainLayout.getChildren().addAll(infoLayout, photoPane);
+
+        getChildren().addAll(mainLayout, personalStatementFlow);
 
         changeEmailButton.setOnAction(event -> showEmailDialog());
     }
@@ -57,31 +69,7 @@ public class PersonInfo extends VBox {
     }
 
     private void showEmailDialog() {
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("更改邮箱");
-        dialog.setHeaderText("请输入新的电子邮件地址");
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField newEmailField = new TextField();
-        grid.add(new Label("新邮箱："), 0, 0);
-        grid.add(newEmailField, 1, 0);
-
-        dialog.getDialogPane().setContent(grid);
-
-        ButtonType submitButtonType = new ButtonType("提交", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(submitButtonType, ButtonType.CANCEL);
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == submitButtonType) {
-                return newEmailField.getText();
-            }
-            return null;
-        });
-
+        ChangeEmailDialog dialog = new ChangeEmailDialog();
         dialog.showAndWait().ifPresent(newEmail -> {
             try {
                 studentService.updateEmail(newEmail);

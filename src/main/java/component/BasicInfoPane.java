@@ -2,26 +2,27 @@ package component;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class BasicInfoPane extends GridPane {
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
-    private Label nameLabel;
-    private Label emailLabel;
+public class BasicInfoPane extends GridPane {
+    private Text nameText;
+    private Text emailText;
 
     public BasicInfoPane(String name, String email) {
-        nameLabel = new Label(name);
-        emailLabel = new Label(email);
 
         setHgap(10);
         setVgap(10);
 
-        add(new Label("姓名："), 0, 0);
-        add(nameLabel, 1, 0);
-        add(new Label("邮箱："), 0, 1);
-        add(emailLabel, 1, 1);
+        nameText = new Text(name);
+        emailText = new Text(email);
+
+        addRow(0, new Label("姓名："), nameText);
+        addRow(1, new Label("邮箱："), emailText);
     }
 
     public void setEmail(String email) {
-        emailLabel.setText(email);
+        emailText.setText(email);
     }
 }
 

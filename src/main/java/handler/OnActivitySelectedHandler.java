@@ -14,7 +14,7 @@ public class OnActivitySelectedHandler implements Consumer<Activity> {
     }
 
     //@Override
-    public void accept(@org.jetbrains.annotations.NotNull Activity activity) {
+    public void accept(Activity activity) {
         if (activity.getType() == Activity.ActivityType.CLASS) {
             ModuleInfo moduleInfo = new ModuleInfo(activity);
             moduleInfo.setOnBackButtonClick(event -> {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtraCurriculumDao extends DAO {
-    private final String storeDirectory = "src/main/resources/data/activity.txt";
+    private final String storeDirectory = "src/main/resources/data/extracurriculum.txt";
 
 
     /**
@@ -20,11 +20,11 @@ public class ExtraCurriculumDao extends DAO {
      */
     public void save(ExtraCurriculum extraCurriculum) {
         // Convert the activity to a JSON string
-        String activityJSON = JSONObject.toJSONString(extraCurriculum);
+        String extracurriculumJSON = JSONObject.toJSONString(extraCurriculum);
 
         try (FileWriter fileWriter = new FileWriter(storeDirectory, true)) {
             // Write the JSON string to the file
-            fileWriter.write(activityJSON + "\n");
+            fileWriter.write(extracurriculumJSON + "\n");
             // Flush the buffer to force the data to be written
             fileWriter.flush();
         } catch (IOException e) {

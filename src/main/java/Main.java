@@ -8,7 +8,7 @@ import view.PersonInfo;
 public class Main {
     public static void main(String[] args) {
         //Application.launch(Home.class, args);
-        Application.launch(PersonHome.class, args);
-        //Application.launch(ExtraCurriculumHome.class, args);
+        //Application.launch(PersonHome.class, args);
+        Application.launch(ExtraCurriculumHome.class, args);
     }
 }

@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.ExtraCurriculum;
-import model.ExtraCurriculumItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +59,8 @@ public class ExtraCurriculumInfo extends BorderPane {
 
     private ExtraCurriculumTable createExtraCurriculumTable() {
         //TODO: Read ExtraCurriculumItems from activity
-        List<ExtraCurriculumItem> extraCurriculumItems = new ArrayList<>();
-        ExtraCurriculum extraCurriculum = new ExtraCurriculum(extraCurriculumItems);
+        List<ExtraCurriculum> extraCurriculumItems = new ArrayList<>();
+        ExtraCurriculum extraCurriculum = new ExtraCurriculum();
         ExtraCurriculumTable extraCurriculumTable = new ExtraCurriculumTable(extraCurriculum);
         return extraCurriculumTable;
     }

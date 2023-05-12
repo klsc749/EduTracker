@@ -1,5 +1,6 @@
 package component;
 
+import dao.ExtraCurriculumDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -11,8 +12,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ExtraCurriculum;
+import service.ExtraCurriculumService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExtraCurriculumTable extends VBox {
 
@@ -24,8 +27,12 @@ public class ExtraCurriculumTable extends VBox {
 
     private ExtraCurriculum extraCurriculum;
 
+    ExtraCurriculumDao extraCurriculumDao = new ExtraCurriculumDao();
+
     public ExtraCurriculumTable(ExtraCurriculum extraCurriculum) {
         this.extraCurriculum = extraCurriculum;
+        List<ExtraCurriculum> extraCurriculumlist = extraCurriculumDao.getAllExtraCurriculums();
+        extraCurriculum.setExtraCurriculumItems(extraCurriculumlist);
         if(extraCurriculum.getExtraCurriculumItems() == null) {
             extraCurriculum.setExtraCurriculumItems(new ArrayList<>());
         }
@@ -47,6 +54,9 @@ public class ExtraCurriculumTable extends VBox {
 
         BorderPane textFields = addTextFields(nameColumn.getPrefWidth(), contentColumn.getPrefWidth());
         getChildren().addAll(titleLabel, table, textFields);
+        for(int i=0;i<extraCurriculumlist.size();i++){
+            table.getItems().add(extraCurriculumlist.get(i));
+        }
     }
 
     private TableColumn<ExtraCurriculum, String> createNameColumn() {
@@ -106,12 +116,14 @@ public class ExtraCurriculumTable extends VBox {
         if (nameTextField.getText().isEmpty() || contentTextField.getText().isEmpty()) {
             throw new RuntimeException("Please fill all the fields");
         }
-        ExtraCurriculum item = new ExtraCurriculum();
-        item.setName(nameTextField.getText());
-        item.setContent(contentTextField.getText());
+        ExtraCurriculum item = new ExtraCurriculum(nameTextField.getText(), contentTextField.getText());
+        //item.setName(nameTextField.getText());
+        //item.setContent(contentTextField.getText());
         table.getItems().add(item);
         nameTextField.clear();
         contentTextField.clear();
+        ExtraCurriculumService extraCurriculumService = new ExtraCurriculumService();
+        extraCurriculumService.saveExtraCurriculum(item);
     }
 
     private void handleSaveButtonClick(Event event) {

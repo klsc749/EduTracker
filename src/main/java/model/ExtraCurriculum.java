@@ -4,23 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtraCurriculum extends Activity{
-    List<ExtraCurriculumItem> extraCurriculumItems = new ArrayList<ExtraCurriculumItem>();
+    List<ExtraCurriculum> extraCurriculumitems = new ArrayList<ExtraCurriculum>();
+    public ExtraCurriculum(String name, String content){
+        this.name = name;
+        this.content = content;
+    }
     public ExtraCurriculum(){
 
     }
-    public ExtraCurriculum(List<ExtraCurriculumItem> extraCurriculumItems) {
-        this.extraCurriculumItems = extraCurriculumItems;
-    }
-    public List<ExtraCurriculumItem> getExtraCurriculumItems() {
-        return extraCurriculumItems;
+    /*
+    public ExtraCurriculum(List<ExtraCurriculum> extraCurriculumItems) {
+        this.extraCurriculumitems = extraCurriculumitems;
+    }*/
+    public List<ExtraCurriculum> getExtraCurriculumItems() {
+        return extraCurriculumitems;
     }
 
-    public void setExtraCurriculumItems(List<ExtraCurriculumItem> extraCurriculumItems) {
-        this.extraCurriculumItems = extraCurriculumItems;
+    public void setExtraCurriculumItems(List<ExtraCurriculum> extraCurriculumitems) {
+        this.extraCurriculumitems = extraCurriculumitems;
     }
 
     String content;
     List<String> teammates = new ArrayList<String>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getContent() {
         return content;
@@ -36,5 +49,9 @@ public class ExtraCurriculum extends Activity{
 
     public void setTeammates(List<String> teammates) {
         this.teammates = teammates;
+    }
+
+    public String toString() {
+        return name + " " + content;
     }
 }

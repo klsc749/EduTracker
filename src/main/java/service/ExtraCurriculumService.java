@@ -9,7 +9,7 @@ public class ExtraCurriculumService {
     private ExtraCurriculumDao extraCurriculumDao = new ExtraCurriculumDao();
 
     public void saveExtraCurriculum(ExtraCurriculum extraCurriculum) {
-        extraCurriculumDao.save(null);
+        extraCurriculumDao.save(extraCurriculum);
     }
 
     public ExtraCurriculum getExtraCurriculumById(String id) {

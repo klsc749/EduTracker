@@ -1,6 +1,6 @@
 package model;
 
-public class ExtraCurriculumItem {
+public class ExtraCurriculumItem extends ExtraCurriculum{
     String name;
 
     String content;

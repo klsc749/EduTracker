@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtraCurriculum extends Activity{
-    List<ExtraCurriculum> extraCurriculumitems = new ArrayList<ExtraCurriculum>();
+    List<ExtraCurriculum> extraCurriculumitems = new ArrayList<>();
     public ExtraCurriculum(String name, String content){
         this.name = name;
         this.content = content;
@@ -25,16 +25,7 @@ public class ExtraCurriculum extends Activity{
     }
 
     String content;
-    List<String> teammates = new ArrayList<String>();
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    List<String> teammates = new ArrayList<>();
     public String getContent() {
         return content;
     }

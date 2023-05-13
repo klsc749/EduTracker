@@ -3,6 +3,8 @@ package service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -110,5 +112,13 @@ public class StudentServiceTest {
     }
 
 
-
+    @Test
+    public void testSaveNewImage(){
+        File newfile=new File("/Users/coisini/Desktop/test.jpg");
+        try{
+            studentService.SaveNewImage(newfile);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

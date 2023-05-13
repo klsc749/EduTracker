@@ -5,9 +5,11 @@ import model.Student;
 
 import javafx.scene.image.Image;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -140,5 +142,36 @@ public class StudentService {
         return newContent;
     }
 
+    /**
+     *Use FileChooser to choose a file from system and replace the old photo.jpg
+     * @param newimage
+     */
+    public void SaveNewImage(File newimage) throws Exception{
+        Path destDirPath = Paths.get("src/main/resources/image/student");
+        // create the destination file path
+        Path destFilePath = destDirPath.resolve("photo.jpg");
+        // Delete the existing photo.jpg file if it exists
+        Files.deleteIfExists(destFilePath);
+
+        // Copy the new image file to the destination directory
+        Files.copy(newimage.toPath(), destFilePath);
+    }
+
+    /**
+     * save a new image file from filechooser and load the student image
+     * @param newimage
+     * @return Image
+     * @throws Exception
+     */
+    public Image updateStudentImage(File newimage) throws Exception{
+        SaveNewImage(newimage);
+        Image image=loadStudentImage();
+        return image;
+    }
+
+    //TODO: 导出CV
+    public File ExportCV(){
+        return new File("");
+    }
 
 }

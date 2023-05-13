@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import model.Activity;
 import model.ExtraCurriculum;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ public class ExtraCurriculumInfo extends BorderPane {
     private Label titleLabel;
     private ExtraCurriculumTable extraCurriculumTable;
 
-    private ExtraCurriculum extraCurriculum;
+    private Activity activity;
 
-    public ExtraCurriculumInfo(ExtraCurriculum extraCurriculum) {
-        this.extraCurriculum = extraCurriculum;
+    public ExtraCurriculumInfo(Activity activity) {
+        this.activity = activity;
         initStyle();
         setContent();
         setContentStyle();
@@ -46,13 +47,13 @@ public class ExtraCurriculumInfo extends BorderPane {
 
     private void setContent(){
         content = new VBox();
-        titleLabel = createTitleLabel(extraCurriculum.getName());
+        titleLabel = createTitleLabel(activity.getName());
         extraCurriculumTable = createExtraCurriculumTable();
         content.getChildren().addAll(titleLabel, extraCurriculumTable);
     }
 
     private Label createTitleLabel(String text) {
-        Label titleLabel = new Label("Details for " + extraCurriculum.getName());
+        Label titleLabel = new Label("Details for " + activity.getName());
         titleLabel.setStyle("-fx-font-size: 24;");
         return titleLabel;
     }

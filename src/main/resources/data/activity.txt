@@ -6,3 +6,4 @@
 {"directors":["1","2","3"],"endDate":"2023-04-13 18:57:42.819","id":"0c40a863-9443-49a0-b03c-7a60823b4aee","name":"Microservice","startDate":"2023-04-13 18:57:42.819","type":1}
 {"directors":["1","2","3"],"endDate":"2023-04-13 18:57:42.82","id":"5f23c92c-5576-48c5-8d27-634277890cb9","name":"Microservice","startDate":"2023-04-13 18:57:42.82","type":1}
 {"directors":["1","2","3"],"endDate":"2023-04-13 18:57:42.821","id":"4f081a4b-1f9c-4634-8fa0-b9a7a80124bb","name":"Microservice","startDate":"2023-04-13 18:57:42.821","type":1}
+{"content":"EC1","directors":["1","2","3"],"endDate":"2023-05-13 09:26:12.96","extraCurriculumItems":[],"id":"a277e585-560c-4cba-ab4c-798ef05c04a4","name":"ABC","startDate":"2023-05-13 09:26:12.96","teammates":["4","5","6"],"type":0}

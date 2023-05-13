@@ -18,6 +18,8 @@ public class Home extends Application {
 
     private BorderPane root;
     private ScrollableActivityCardPagination scrollableActivityCardPagination;
+
+    private PersonInfo personInfo;
     private LeftMenu leftMenu;
 
     @Override
@@ -53,6 +55,10 @@ public class Home extends Application {
             setRootRight(createScrollableActivityCardPaginationIfNotExit());
         });
 
+        button2.setOnAction(actionEvent -> {
+            setRootRight(createPersonalInfoIfNotExit());
+        });
+
         return leftMenu;
     }
 
@@ -67,6 +73,13 @@ public class Home extends Application {
         }
 
         return scrollableActivityCardPagination;
+    }
+
+    public PersonInfo createPersonalInfoIfNotExit(){
+        if(personInfo == null){
+            personInfo = new PersonInfo();
+        }
+        return personInfo;
     }
 
     /*

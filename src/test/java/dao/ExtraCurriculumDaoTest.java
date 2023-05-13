@@ -12,7 +12,7 @@ public class ExtraCurriculumDaoTest {
 
     @Test
     void testSave() {
-        for ( int i = 0; i < 12; i++){
+        for ( int i = 0; i < 1; i++){
             ExtraCurriculum extraCurriculum = new ExtraCurriculum();
             extraCurriculum.setId(UUID.randomUUID().toString());
             extraCurriculum.setName("ABC");

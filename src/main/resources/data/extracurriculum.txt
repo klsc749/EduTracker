@@ -1,3 +1,4 @@
 {"content":"asdf","directors":[],"extraCurriculumItems":[],"name":"asdf","teammates":[]}
 {"content":"asd","directors":[],"extraCurriculumItems":[],"name":"asd","teammates":[]}
 {"content":"yyy","directors":[],"extraCurriculumItems":[],"name":"yyy","teammates":[]}
+{"content":"EC1","directors":["1","2","3"],"endDate":"2023-05-13 09:26:12.96","extraCurriculumItems":[],"id":"a277e585-560c-4cba-ab4c-798ef05c04a4","name":"ABC","startDate":"2023-05-13 09:26:12.96","teammates":["4","5","6"],"type":0}

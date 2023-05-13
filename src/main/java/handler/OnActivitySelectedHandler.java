@@ -1,6 +1,8 @@
 package handler;
 import model.Activity;
 import model.ExtraCurriculum;
+import view.ExtraCurriculumHome;
+import view.ExtraCurriculumInfo;
 import view.Home;
 import view.ModuleInfo;
 
@@ -23,12 +25,11 @@ public class OnActivitySelectedHandler implements Consumer<Activity> {
             home.setRootRight(moduleInfo);
         }
         else if(activity.getType() == Activity.ActivityType.EXTRA) {
-            //TODO ZPY open extra info
-            ModuleInfo moduleInfo = new ModuleInfo((ExtraCurriculum) activity);
-            moduleInfo.setOnBackButtonClick(event -> {
+            ExtraCurriculumInfo extraCurriculumInfo = new ExtraCurriculumInfo(activity);
+            extraCurriculumInfo.setOnBackButtonClick(event -> {
                 home.setRootRight(home.createScrollableActivityCardPaginationIfNotExit());
             });
-            home.setRootRight(moduleInfo);
+            home.setRootRight(extraCurriculumInfo);
         }
     }
 }

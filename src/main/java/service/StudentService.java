@@ -4,6 +4,9 @@ import dao.StudentDao;
 import model.Student;
 
 import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -145,16 +148,46 @@ public class StudentService {
     /**
      *Use FileChooser to choose a file from system and replace the old photo.jpg
      * @param newimage
+     * @return boolean
      */
-    public void SaveNewImage(File newimage) throws Exception{
+    public boolean SaveNewImage(File newimage) throws Exception{
         Path destDirPath = Paths.get("src/main/resources/image/student");
         // create the destination file path
         Path destFilePath = destDirPath.resolve("photo.jpg");
         // Delete the existing photo.jpg file if it exists
         Files.deleteIfExists(destFilePath);
 
-        // Copy the new image file to the destination directory
-        Files.copy(newimage.toPath(), destFilePath);
+        if(!isImageFile(newimage)){
+            throw new Exception("Invalid File");
+        }else if(newimage.getName().toLowerCase().endsWith(".jpg")){
+            // Copy the new image file to the destination directory
+            Files.copy(newimage.toPath(), destFilePath);
+            return true;
+        }else{
+            // Load the image file
+            BufferedImage image = ImageIO.read(newimage);
+
+            // Convert the image to JPEG format
+            BufferedImage jpegImage = new BufferedImage(image.getWidth(), image.getHeight(),
+                    BufferedImage.TYPE_INT_RGB);
+            jpegImage.createGraphics().drawImage(image, 0, 0, null);
+
+            // Save the JPEG image to a file
+            File destFile = new File(String.valueOf(destDirPath), "photo.jpg");
+            ImageIO.write(jpegImage, "jpg", destFile);
+            return true;
+        }
+    }
+
+    /**
+     * checks if the file has a valid image file extension
+     * @param file
+     * @return
+     */
+    private boolean isImageFile(File file) {
+        String fileName = file.getName().toLowerCase();
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")
+                || fileName.endsWith(".gif") || fileName.endsWith(".bmp");
     }
 
     /**

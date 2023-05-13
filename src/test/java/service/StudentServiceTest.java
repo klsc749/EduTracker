@@ -114,7 +114,8 @@ public class StudentServiceTest {
 
     @Test
     public void testSaveNewImage(){
-        File newfile=new File("/Users/coisini/Desktop/test.jpg");
+        //File newfile=new File("/Users/coisini/Desktop/test.jpg");
+        File newfile=new File("/Users/coisini/Desktop/test2.png");
         try{
             studentService.SaveNewImage(newfile);
         }catch (Exception e){

@@ -1,14 +1,17 @@
 package service;
 
+import javafx.scene.image.Image;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class StudentServiceTest {
     StudentService studentService=new StudentService();
@@ -113,12 +116,23 @@ public class StudentServiceTest {
 
 
     @Test
-    public void testSaveNewImage(){
+    public void testSaveNewImage() throws Exception {
         //File newfile=new File("/Users/coisini/Desktop/test.jpg");
-        File newfile=new File("/Users/coisini/Desktop/test2.png");
+        //File newfile=new File("/Users/coisini/Desktop/test2.png");
+        File newfile=new File("/Users/coisini/Desktop/Y3-introduction-2023.pdf");
+        assertFalse(studentService.SaveNewImage(newfile));
+    }
+
+    @Test
+    public void testUpdateStudentImage(){
+        File newfile=new File("/Users/coisini/Desktop/test.jpg");
+        //File newfile=new File("/Users/coisini/Desktop/test2.png");
+        //File newfile=new File("/Users/coisini/Desktop/Y3-introduction-2023.pdf");
         try{
-            studentService.SaveNewImage(newfile);
-        }catch (Exception e){
+            Image newimage=studentService.updateStudentImage(newfile);
+            assertNotNull(newimage);
+            //assertNull(newimage);
+        }catch(Exception e){
             e.printStackTrace();
         }
     }

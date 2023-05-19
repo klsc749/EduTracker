@@ -1,13 +1,14 @@
 package service;
 
 import dao.StudentDao;
+import javafx.scene.image.Image;
 import model.Student;
 
-import javafx.scene.image.Image;
-
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -127,7 +128,8 @@ public class StudentService {
      * Read Student's image
      * @return image
      */
-    public Image loadStudentImage() {
+    //TODO:fix bug
+    public javafx.scene.image.Image loadStudentImage() {
         return studentDao.loadImage();
     }
 
@@ -150,16 +152,16 @@ public class StudentService {
      * @param newimage
      * @return boolean
      */
-    public boolean SaveNewImage(File newimage) throws Exception{
+    public boolean SaveNewImage(File newimage) throws IOException {
         Path destDirPath = Paths.get("src/main/resources/image/student");
         // create the destination file path
         Path destFilePath = destDirPath.resolve("photo.jpg");
-        // Delete the existing photo.jpg file if it exists
-        Files.deleteIfExists(destFilePath);
 
         if(!isImageFile(newimage)){
-            throw new Exception("Invalid File");
+            return false;
         }else if(newimage.getName().toLowerCase().endsWith(".jpg")){
+            // Delete the existing photo.jpg file if it exists
+            Files.deleteIfExists(destFilePath);
             // Copy the new image file to the destination directory
             Files.copy(newimage.toPath(), destFilePath);
             return true;
@@ -171,6 +173,9 @@ public class StudentService {
             BufferedImage jpegImage = new BufferedImage(image.getWidth(), image.getHeight(),
                     BufferedImage.TYPE_INT_RGB);
             jpegImage.createGraphics().drawImage(image, 0, 0, null);
+
+            // Delete the existing photo.jpg file if it exists
+            Files.deleteIfExists(destFilePath);
 
             // Save the JPEG image to a file
             File destFile = new File(String.valueOf(destDirPath), "photo.jpg");
@@ -196,10 +201,15 @@ public class StudentService {
      * @return Image
      * @throws Exception
      */
-    public Image updateStudentImage(File newimage) throws Exception{
-        SaveNewImage(newimage);
-        Image image=loadStudentImage();
-        return image;
+    //TODO：fix bug
+    public Image updateStudentImage(File newimage) throws Exception {
+        if(SaveNewImage(newimage)){
+            Image image=loadStudentImage();
+            return image;
+        }
+        else{
+            throw new Exception("Invalid file");
+        }
     }
 
     //TODO: 导出CV

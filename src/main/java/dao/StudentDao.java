@@ -95,6 +95,7 @@ public class StudentDao extends DAO{
         return flag;
     }
 
+    //TODO: fix bug
     public Image loadImage() {
         Image image;
         File imageFile = new File(photoDirectory);
@@ -153,7 +154,6 @@ public class StudentDao extends DAO{
 
         return content;
     }
-
 
 
 }

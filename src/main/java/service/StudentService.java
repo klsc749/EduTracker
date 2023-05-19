@@ -1,13 +1,19 @@
 package service;
 
 import dao.StudentDao;
+import javafx.scene.image.Image;
 import model.Student;
 
-import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -122,7 +128,8 @@ public class StudentService {
      * Read Student's image
      * @return image
      */
-    public Image loadStudentImage() {
+    //TODO:fix bug
+    public javafx.scene.image.Image loadStudentImage() {
         return studentDao.loadImage();
     }
 
@@ -140,5 +147,74 @@ public class StudentService {
         return newContent;
     }
 
+    /**
+     *Use FileChooser to choose a file from system and replace the old photo.jpg
+     * @param newimage
+     * @return boolean
+     */
+    public boolean SaveNewImage(File newimage) throws IOException {
+        Path destDirPath = Paths.get("src/main/resources/image/student");
+        // create the destination file path
+        Path destFilePath = destDirPath.resolve("photo.jpg");
+
+        if(!isImageFile(newimage)){
+            return false;
+        }else if(newimage.getName().toLowerCase().endsWith(".jpg")){
+            // Delete the existing photo.jpg file if it exists
+            Files.deleteIfExists(destFilePath);
+            // Copy the new image file to the destination directory
+            Files.copy(newimage.toPath(), destFilePath);
+            return true;
+        }else{
+            // Load the image file
+            BufferedImage image = ImageIO.read(newimage);
+
+            // Convert the image to JPEG format
+            BufferedImage jpegImage = new BufferedImage(image.getWidth(), image.getHeight(),
+                    BufferedImage.TYPE_INT_RGB);
+            jpegImage.createGraphics().drawImage(image, 0, 0, null);
+
+            // Delete the existing photo.jpg file if it exists
+            Files.deleteIfExists(destFilePath);
+
+            // Save the JPEG image to a file
+            File destFile = new File(String.valueOf(destDirPath), "photo.jpg");
+            ImageIO.write(jpegImage, "jpg", destFile);
+            return true;
+        }
+    }
+
+    /**
+     * checks if the file has a valid image file extension
+     * @param file
+     * @return
+     */
+    private boolean isImageFile(File file) {
+        String fileName = file.getName().toLowerCase();
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")
+                || fileName.endsWith(".gif") || fileName.endsWith(".bmp");
+    }
+
+    /**
+     * save a new image file from filechooser and load the student image
+     * @param newimage
+     * @return Image
+     * @throws Exception
+     */
+    //TODO：fix bug
+    public Image updateStudentImage(File newimage) throws Exception {
+        if(SaveNewImage(newimage)){
+            Image image=loadStudentImage();
+            return image;
+        }
+        else{
+            throw new Exception("Invalid file");
+        }
+    }
+
+    //TODO: 导出CV
+    public File ExportCV(){
+        return new File("");
+    }
 
 }

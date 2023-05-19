@@ -1,6 +1,7 @@
 package dao;
 
 import model.Activity;
+import model.Module;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -13,17 +14,11 @@ public class ActivityDaoTest {
 
     @Test
     void testSave() {
-        for ( int i = 0; i < 12; i++){
-            Activity activity = new Activity();
-            activity.setId(UUID.randomUUID().toString());
-            activity.setName("Microservice");
-            activity.setType(Activity.ActivityType.CLASS);
-            activity.setStartDate(new Date());
-            activity.setEndDate(new Date());
-            activity.setDirectors(Arrays.asList("1", "2", "3"));
-
-            activityDao.save(activity);
-        }
+        Module module = new Module();
+        module.setId(UUID.randomUUID().toString());
+        module.setName("Software Engineering");
+        module.setDegree("MSc");
+        activityDao.save(module);
     }
 
     @Test

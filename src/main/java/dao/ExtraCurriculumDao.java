@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtraCurriculumDao extends DAO {
-    private final String storeDirectory = "src/main/resources/data/extracurriculum.txt";
+    private final String storeDirectory = "src/main/resources/data/activity.txt";
 
 
     /**

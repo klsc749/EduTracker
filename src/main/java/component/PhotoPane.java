@@ -6,6 +6,8 @@ import javafx.scene.layout.Pane;
 
 public class PhotoPane extends Pane {
 
+    private ImageView imageView;
+
     public PhotoPane(Image image) {
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(150);
@@ -15,6 +17,10 @@ public class PhotoPane extends Pane {
         imageView.setCache(true);
 
         getChildren().add(imageView);
+    }
+
+    public void setImage(Image image) {
+        imageView.setImage(image);
     }
 }
 

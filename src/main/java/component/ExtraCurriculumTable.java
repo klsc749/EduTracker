@@ -44,7 +44,8 @@ public class ExtraCurriculumTable extends VBox {
         TableColumn<ExtraCurriculum, String> contentColumn = createContentColumn();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
-        table.getColumns().addAll(nameColumn, contentColumn);
+        table.getColumns().add(nameColumn);
+        table.getColumns().add(contentColumn);
 
         // Add columns to TableView
         ObservableList<ExtraCurriculum> observableItems = FXCollections.observableArrayList();

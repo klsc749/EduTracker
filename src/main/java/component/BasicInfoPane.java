@@ -2,7 +2,6 @@ package component;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class BasicInfoPane extends GridPane {

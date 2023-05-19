@@ -8,7 +8,6 @@ import javafx.scene.control.Pagination;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import model.Activity;
 import service.ActivityService;
 

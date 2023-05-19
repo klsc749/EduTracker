@@ -2,7 +2,6 @@ package component;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.util.Pair;
 
 public class ChangePersonalStatementDialog extends Dialog<String> {
 

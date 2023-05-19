@@ -41,7 +41,9 @@ public class MarkTable extends VBox {
         TableColumn<MarkItem, Double> proportionColumn = createProportionColumn();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
-        table.getColumns().addAll(nameColumn, markColumn, proportionColumn);
+        table.getColumns().add(nameColumn);
+        table.getColumns().add(markColumn);
+        table.getColumns().add(proportionColumn);
 
         // Add columns to TableView
         ObservableList<MarkItem> observableMarkItems = FXCollections.observableArrayList(mark.getMarkItems());

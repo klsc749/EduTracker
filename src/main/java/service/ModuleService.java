@@ -7,7 +7,7 @@ import model.Module;
 public class ModuleService {
     private ModuleDao moduleDao = new ModuleDao();
 
-    public void saveModule(Module module) { moduleDao.save(null); }
+    public void saveModule(Module module) { moduleDao.save(module); }
 
     public Module getModuleById (String id) { return moduleDao.getModuleById(id); }
 
@@ -17,5 +17,5 @@ public class ModuleService {
 
     public void addMarkItem(String id, MarkItem markItem){moduleDao.addMarkItem(id,markItem);}
 
-    public void updateMarkItem(String module_id,String mark_name, MarkItem markItem){ }
+    public void updateMarkItem(String module_id,String mark_name, MarkItem markItem){moduleDao.updateMarkItem(module_id,mark_name,markItem); }
 }

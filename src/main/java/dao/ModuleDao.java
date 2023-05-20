@@ -22,6 +22,8 @@ public class ModuleDao extends DAO {
         String moduleJSON = JSONObject.toJSONString(module);
 
         try (FileWriter fileWriter = new FileWriter(storeDirectory, true)) {
+            
+            
             // Write the JSON string to the file
             fileWriter.write(moduleJSON + "\n");
             // Flush the buffer to force the data to be written

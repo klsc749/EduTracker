@@ -17,11 +17,13 @@ public class ModuleServiceTest {
     public void testSaveModule() {
         module.setDegree("2");
         module.setName("Programing");
+        module.setMark(new Mark());
+        module.setId("111");
         module.setType(ActivityType.CLASS);
         moduleService.saveModule(module);
 
         Module module2 = moduleService.getModuleById(module.getId());
-        
+
         assert module2 != null;
         assert module2.getName().equals(module.getName());
         assert module2.getDegree().equals(module.getDegree());

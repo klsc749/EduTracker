@@ -1,2 +1,10 @@
 {"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[]}
 {"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[]}
+
+{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Program","skillTags":[]}
+null
+null
+null
+{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[],"type":1}
+{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[],"type":1}
+{"degree":"2","directors":[],"id":"111","mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[],"type":1}

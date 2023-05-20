@@ -1,11 +1,7 @@
 package dao;
 
-import model.Activity;
 import model.Module;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.Date;
 import java.util.UUID;
 
 public class ActivityDaoTest {

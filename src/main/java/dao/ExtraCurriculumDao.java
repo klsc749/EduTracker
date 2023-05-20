@@ -1,6 +1,7 @@
 package dao;
 
 import com.alibaba.fastjson2.JSONObject;
+import model.Activity;
 import model.ExtraCurriculum;
 
 import java.io.BufferedReader;
@@ -9,9 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ExtraCurriculumDao extends DAO {
-    private final String storeDirectory = "src/main/resources/data/activity.txt";
+    private final String storeDirectory = "src/main/resources/data/extracurriculum.txt";
 
 
     /**
@@ -21,6 +23,8 @@ public class ExtraCurriculumDao extends DAO {
      */
     public void save(ExtraCurriculum extraCurriculum) {
         // Convert the activity to a JSON string
+        extraCurriculum.setId(UUID.randomUUID().toString());
+        extraCurriculum.setType(Activity.ActivityType.EXTRA);
         String extracurriculumJSON = JSONObject.toJSONString(extraCurriculum);
 
         try (FileWriter fileWriter = new FileWriter(storeDirectory, true)) {

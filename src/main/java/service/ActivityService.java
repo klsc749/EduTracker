@@ -1,22 +1,26 @@
 package service;
 
-import dao.ActivityDao;
 import dao.ExtraCurriculumDao;
+import dao.ModuleDao;
 import model.Activity;
+import model.ExtraCurriculum;
+import model.Module;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityService {
-    private ActivityDao activityDao = new ActivityDao();
-    public void saveActivity(Activity activity) {
-        activityDao.save(null);
-    }
+    private ModuleDao moduleDao = new ModuleDao();
+    private  ExtraCurriculumDao extraCurriculumDao = new ExtraCurriculumDao();
 
-    public Activity getActivityById(String id) {
-        return activityDao.getActivityById(id);
-    }
 
     public List<Activity> getAllActivities() {
-        return activityDao.getAllActivities();
+        List<Module> modules = moduleDao.getAllModules();
+        List<ExtraCurriculum> extraCurriculums = extraCurriculumDao.getAllExtraCurriculums();
+
+        List<Activity> activities = new ArrayList<>();
+        activities.addAll(modules);
+        activities.addAll(extraCurriculums);
+        return activities;
     }
 }

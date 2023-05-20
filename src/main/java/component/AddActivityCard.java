@@ -24,7 +24,10 @@ public class AddActivityCard extends VBox {
     private final ImageView imageView;
 
     private final ActivityService activityService = new ActivityService();
-    public AddActivityCard(){
+
+    private final ActivityCardPagination activityCardPagination;
+    public AddActivityCard(ActivityCardPagination activityCardPagination){
+        this.activityCardPagination = activityCardPagination;
         initStyle();
         initAddImage();
         imageView = new ImageView(addDefaultImage);
@@ -74,7 +77,7 @@ public class AddActivityCard extends VBox {
         dialogStage.initModality(Modality.WINDOW_MODAL); // make the dialog modal and block the main window
         dialogStage.setTitle("Add Activity");
 
-        AddActivity addActivity = new AddActivity();
+        AddActivity addActivity = new AddActivity(activityCardPagination);
         Scene dialogScene = new Scene(addActivity);
         dialogStage.setScene(dialogScene);
         dialogStage.sizeToScene(); // Resizes the stage to fit the preferred size of its content

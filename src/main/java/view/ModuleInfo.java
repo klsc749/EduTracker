@@ -61,11 +61,9 @@ public class ModuleInfo extends BorderPane {
     }
 
     private MarkTable createMarkTable() {
-        //TODO: Read MarkItems from activity
-        List<MarkItem> markItems = new ArrayList<>();
-        markItems.add(new MarkItem("Item 1", 80.0, 0.4));
-        markItems.add(new MarkItem("Item 2", 90.0, 0.6));
-        Mark mark = new Mark(markItems);
+        if(!(activity instanceof Module)) {
+            return null;
+        }
         MarkTable markTable = new MarkTable((Module)activity);
         return markTable;
     }

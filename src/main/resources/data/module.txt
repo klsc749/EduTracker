@@ -1,5 +1,3 @@
-{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[]}
-{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[]}
-{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Program","skillTags":[]}
-{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[],"type":1}
-{"degree":"2","directors":[],"mark":{"markItems":[],"totalMark":0.0},"name":"Programing","skillTags":[],"type":1}
+{"degree":"Bachelor","directors":[],"id":"7c8ed6d6-6e12-4bf4-92eb-820d84a661cd","mark":{"markItems":[{"mark":95.0,"name":"midtest","proportion":0.2}],"totalMark":19.0},"name":"Software Engineering","skillTags":[],"type":1}
+{"directors":[],"endDate":"2023-05-20 00:00:00","id":"77601167-6f9e-4b04-b701-6b2d3fec70dc","mark":{"markItems":[],"totalMark":0.0},"name":"mid","skillTags":[],"startDate":"2023-05-03 00:00:00","type":1}
+{"directors":[],"endDate":"2023-05-31 00:00:00","id":"d26247d0-3016-4fef-855b-98610f1b9dc9","mark":{"markItems":[],"totalMark":0.0},"name":"Microcontroller","skillTags":[],"startDate":"2023-05-03 00:00:00","type":1}

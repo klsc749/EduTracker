@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class ActivityCardPagination extends FlowPane {
-    private Pagination pagination;
+    private final Pagination pagination;
     private final int itemsPerPage = 12;
     private List<Activity> activities;
     private final double cardWidth;
@@ -28,11 +28,13 @@ public class ActivityCardPagination extends FlowPane {
 
     private Consumer<Activity> onActivityClicked;
 
-    private final AddActivityCard addActivityCard = new AddActivityCard();
+    private final AddActivityCard addActivityCard;
 
     public ActivityCardPagination() {
         // get all activities from DB
         this.activities = activityService.getAllActivities();
+
+        this.addActivityCard = new AddActivityCard(this);
 
         // calculate total pages
         int totalPages = (int) Math.ceil((double) activities.size() / itemsPerPage);
@@ -143,8 +145,6 @@ public class ActivityCardPagination extends FlowPane {
         this.onActivityClicked = onActivityClicked;
     }
 
-    //TODO: test after implementing the add activity card to db
-    //TODO: to call it to the add button in the add activity card
     public void refresh() {
         // get all activities from DB
         this.activities = activityService.getAllActivities();

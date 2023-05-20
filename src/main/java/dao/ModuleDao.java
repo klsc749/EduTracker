@@ -1,13 +1,13 @@
 package dao;
 
 import com.alibaba.fastjson2.JSONObject;
-import model.Activity;
-import model.Mark;
-import model.MarkItem;
+import model.*;
 import model.Module;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ModuleDao extends DAO {
     private final String storeDirectory = "src/main/resources/data/module.txt";
@@ -19,6 +19,8 @@ public class ModuleDao extends DAO {
      */
     public void save(Module module) {
         // Convert the module to a JSON string
+        module.setId(UUID.randomUUID().toString());
+        module.setType(Activity.ActivityType.CLASS);
         String moduleJSON = JSONObject.toJSONString(module);
 
         try (FileWriter fileWriter = new FileWriter(storeDirectory, true)) {
@@ -89,9 +91,29 @@ public class ModuleDao extends DAO {
      * @param list The list to add the Activity object to
      * @param line The line to parse
      */
-    private void parseLineAndAddToList(List<Activity> list, String line) {
-        Activity activity = parseLine(line, Activity.class);
-        list.add(activity);
+    private void parseLineAndAddToList(List<Module> list, String line) {
+        Module module = parseLine(line, Module.class);
+        list.add(module);
+    }
+
+    public List<Module> getAllModules() {
+        List<Module> list = new ArrayList<>();
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(storeDirectory);
+            bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                parseLineAndAddToList(list, line);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeFileReader(fileReader);
+            closeBufferedReader(bufferedReader);
+        }
+        return list;
     }
 
     /**

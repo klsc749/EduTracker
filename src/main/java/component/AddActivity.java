@@ -8,14 +8,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import model.Activity;
 import model.ExtraCurriculum;
+import model.Mark;
 import model.Module;
 import service.ExtraCurriculumService;
 import service.ModuleService;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AddActivity extends VBox {
@@ -26,10 +29,14 @@ public class AddActivity extends VBox {
     private DatePicker startDatePicker;
     private DatePicker endDatePicker;
 
-    public AddActivity() {
+    private final ActivityCardPagination activityCardPagination;
+
+    public AddActivity(ActivityCardPagination activityCardPagination) {
         setSpacing(20);
         setPadding(new Insets(10));
         setAlignment(Pos.CENTER);
+
+        this.activityCardPagination = activityCardPagination;
 
         getChildren().addAll(initHeader(), initForm(), initButton());
     }
@@ -95,18 +102,28 @@ public class AddActivity extends VBox {
         if(startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
             throw new RuntimeException("Start date cannot be after end date");
         }
-        Activity activity = new Activity();
-        activity.setName(activityNameTextField.getText());
-        activity.setStartDate(localDateToDate(startDatePicker.getValue()));
-        activity.setEndDate(localDateToDate(endDatePicker.getValue()));
+
 
         if(activityTypeComboBox.getValue() == Activity.ActivityType.CLASS) {
-            //TODO: complete save module
-            moduleService.saveModule((Module) activity);
+            Module module = new Module();
+            module.setName(activityNameTextField.getText());
+            module.setStartDate(localDateToDate(startDatePicker.getValue()));
+            module.setEndDate(localDateToDate(endDatePicker.getValue()));
+            module.setMark(new Mark());
+            module.setSkillTags(new ArrayList<>());
+            moduleService.saveModule(module);
         } else if(activityTypeComboBox.getValue() == Activity.ActivityType.EXTRA) {
-            //TODO: complete save extra curriculum
-            extraCurriculumService.saveExtraCurriculum((ExtraCurriculum) activity);
+            ExtraCurriculum extraCurriculum = new ExtraCurriculum();
+            extraCurriculum.setName(activityNameTextField.getText());
+            extraCurriculum.setStartDate(localDateToDate(startDatePicker.getValue()));
+            extraCurriculum.setEndDate(localDateToDate(endDatePicker.getValue()));
+            extraCurriculumService.saveExtraCurriculum(extraCurriculum);
         }
+
+        activityCardPagination.refresh();
+
+        Stage stage = (Stage) getScene().getWindow();
+        stage.close();
     }
 
     private Date localDateToDate(LocalDate localDate) {

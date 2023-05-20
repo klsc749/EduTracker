@@ -1,11 +1,13 @@
 package dao;
 
+import model.Activity;
 import model.Mark;
 import model.MarkItem;
 import model.Module;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModuleDaoTest {
     
@@ -40,10 +42,13 @@ public class ModuleDaoTest {
     
     @Test
     void testSave(){
-        Module module=new Module();
+        Module module = new Module();
+        module.setDegree("Bachelor");
         module.setMark(new Mark());
-        module.setDegree("2");
-        module.setName("Program");
+        module.setName("Software Engineering");
+        module.setType(Activity.ActivityType.CLASS);
+        module.setSkillTags(new ArrayList<String>());
+
         moduleDao.save(module);
     }
 
@@ -80,6 +85,16 @@ public class ModuleDaoTest {
         for(String string_name:markItemName){
             MarkItem markItem = new MarkItem(string_name,99,0.9);
             moduleDao.updateMarkItem(string_id,string_name,markItem);
+        }
+    }
+
+    @Test
+    void testGetAllModules(){
+        List<Module> modules = new ArrayList<>();
+        modules = moduleDao.getAllModules();
+
+        for(Module module:modules){
+            System.out.println(module.getClass());
         }
     }
 }

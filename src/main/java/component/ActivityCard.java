@@ -62,11 +62,7 @@ public class ActivityCard extends VBox {
     private String generateImagePath() {
         int end = 3;
         int imageNum = Math.abs(activity.getId().hashCode()) % end + 1;
-        if (activity.getType() == Activity.ActivityType.CLASS) {
-            return "image/module/image" + imageNum + ".png";
-        } else {
-            return "image/icon.png";
-        }
+        return "image/module/image" + imageNum + ".png";
     }
 
     private ImageView createImageView(String imagePath, double width) {

@@ -217,6 +217,9 @@ public class ModuleDao extends DAO {
 
     public void updateMarkItem(String module_id,String markItem_name, MarkItem markItemUpdated){
         Module module = getModuleById(module_id);
+        if(module == null){
+            return;
+        }
         List<MarkItem> markItems = module.getMark().getMarkItems();
 
         for (MarkItem markItem : markItems) {

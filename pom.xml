@@ -86,7 +86,7 @@
             <configuration>
                 <mainClass>Main</mainClass>
             </configuration>
-        </plugin>
+      </plugin>
     </plugins>
   </build>
 </project>

@@ -11,10 +11,11 @@ import model.Activity.ActivityType;
 
 public class ModuleServiceTest {
     ModuleService moduleService = new ModuleService();
-    private Module module = new Module();
+    private String moduleId = "111";
     
     @Test
     public void testSaveModule() {
+        Module module = new Module();
         module.setDegree("2");
         module.setName("Programing");
         module.setMark(new Mark());
@@ -34,6 +35,7 @@ public class ModuleServiceTest {
         Mark mark = new Mark();
         MarkItem markItem = new MarkItem("Assignment", 50, 0.5);
         mark.setMarkItems(Arrays.asList(markItem));
+        Module module = moduleService.getModuleById(moduleId);
         module.setMark(mark);
 
         moduleService.addMarkItem(module.getId(), markItem);
@@ -44,8 +46,8 @@ public class ModuleServiceTest {
 
     @Test
     public void testDeleteModuleById(){
-        moduleService.deleteModuleById(module.getId());
-        Module module2 = moduleService.getModuleById(module.getId());
+        moduleService.deleteModuleById(moduleId);
+        Module module2 = moduleService.getModuleById(moduleId);
         assert module2 == null;
     }
 }

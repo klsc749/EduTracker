@@ -42,4 +42,13 @@ public class MarkItem implements CalculateMark {
     public String toString() {
         return name + " " + mark + " " + proportion;
     }
+
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof MarkItem))
+            return false;
+        MarkItem markItem = (MarkItem) o;
+        return markItem.name.equals(name) && markItem.mark == mark && markItem.proportion == proportion;
+    }
 }

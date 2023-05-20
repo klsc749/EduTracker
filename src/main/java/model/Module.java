@@ -13,8 +13,6 @@ public class Module extends Activity{
 
     }
 
-
-
     public Mark getMark() {
         return mark;
     }

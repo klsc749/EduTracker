@@ -9,7 +9,7 @@ public class PhotoPane extends Pane {
     private ImageView imageView;
 
     public PhotoPane(Image image) {
-        ImageView imageView = new ImageView(image);
+        imageView = new ImageView(image);
         imageView.setFitWidth(150);
         imageView.setFitHeight(200);
         imageView.setPreserveRatio(true);

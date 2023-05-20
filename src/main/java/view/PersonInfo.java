@@ -138,7 +138,6 @@ public class PersonInfo extends VBox {
             try {
                 // 更新照片
                 Image newImage = studentService.updateStudentImage(selectedFile);
-                if(newImage != null) System.out.println("NULL");
                 photoPane.setImage(newImage);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

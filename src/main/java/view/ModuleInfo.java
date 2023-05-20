@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import model.Activity;
 import model.Mark;
 import model.MarkItem;
+import model.Module;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class ModuleInfo extends BorderPane {
         markItems.add(new MarkItem("Item 1", 80.0, 0.4));
         markItems.add(new MarkItem("Item 2", 90.0, 0.6));
         Mark mark = new Mark(markItems);
-        MarkTable markTable = new MarkTable(mark);
+        MarkTable markTable = new MarkTable((Module)activity);
         return markTable;
     }
 

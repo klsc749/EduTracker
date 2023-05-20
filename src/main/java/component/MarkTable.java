@@ -13,23 +13,31 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.DoubleStringConverter;
 import model.Mark;
 import model.MarkItem;
+import model.Module;
+import service.ModuleService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MarkTable extends VBox {
 
     private TableView<MarkItem> table = new TableView<>();
 
     private Mark mark;
+    private Module module;
 
     private Label totalMarkLabel;
     private TextField nameTextField;
     private TextField markTextField;
     private TextField proportionTextField;
+    private ModuleService moduleService = new ModuleService();
 
-    public MarkTable(Mark mark) {
-        this.mark = mark;
+    private List<MarkItem> addMarkItems = new ArrayList<>();
+
+    public MarkTable(Module module) {
+        this.module = module;
+        this.mark = module.getMark();
         if(mark.getMarkItems() == null) {
             mark.setMarkItems(new ArrayList<>());
         }
@@ -60,6 +68,10 @@ public class MarkTable extends VBox {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(event -> {
+            if(event.getNewValue().equals("")) {
+                event.getRowValue().setName(event.getOldValue());
+                throw new IllegalArgumentException("Name cannot be empty");
+            }
             event.getRowValue().setName(event.getNewValue());
             updateMarkItemList();
         });
@@ -71,6 +83,10 @@ public class MarkTable extends VBox {
         markColumn.setCellValueFactory(new PropertyValueFactory<>("mark"));
         markColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         markColumn.setOnEditCommit(event -> {
+            if(event.getNewValue() < 0 || event.getNewValue() > 100) {
+                event.getRowValue().setMark(event.getOldValue());
+                throw new IllegalArgumentException("Mark must be between 0 and 100");
+            }
             event.getRowValue().setMark(event.getNewValue());
             updateMarkItemList();
         });
@@ -82,6 +98,10 @@ public class MarkTable extends VBox {
         proportionColumn.setCellValueFactory(new PropertyValueFactory<>("proportion"));
         proportionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         proportionColumn.setOnEditCommit(event -> {
+            if(event.getNewValue() < 0 || event.getNewValue() > 1) {
+                event.getRowValue().setProportion(event.getOldValue());
+                throw new IllegalArgumentException("Proportion must be between 0 and 1");
+            }
             event.getRowValue().setProportion(event.getNewValue());
             updateMarkItemList();
         });
@@ -132,6 +152,7 @@ public class MarkTable extends VBox {
     }
 
     private void handleAddButtonClick(Event event) {
+        //check if all fields are filled
         if (nameTextField.getText().isEmpty() || markTextField.getText().isEmpty() || proportionTextField.getText().isEmpty()) {
             throw new RuntimeException("Please fill all the fields");
         }
@@ -141,22 +162,32 @@ public class MarkTable extends VBox {
         if(Double.parseDouble(markTextField.getText()) < 0.0) {
             throw new RuntimeException("Mark cannot be less than 0");
         }
+
+        //check if the total proportion is greater than 1
         MarkItem markItem = new MarkItem(nameTextField.getText(), Double.parseDouble(markTextField.getText()), Double.parseDouble(proportionTextField.getText()));
         System.out.println(markItem);
-        //TODO: Add markItem
+        if(!mark.isProportionValid(markItem)){
+            throw new RuntimeException("The total proportion of all mark items cannot exceed 1.");
+        }
+
+        if(mark.getMarkItems() == null) {
+            mark.setMarkItems(new ArrayList<>());
+        }
+        
         mark.getMarkItems().add(markItem);
+        addMarkItems.add(markItem);
         table.getItems().add(markItem);
         nameTextField.clear();
         markTextField.clear();
         proportionTextField.clear();
 
-        //update total mark
         updateTotalMarkLabel();
     }
 
     private void handleSaveButtonClick(Event event) {
-        //TODO: Update the markItems
-        System.out.println(mark.getMarkItems());
+        for(MarkItem markItem : addMarkItems) {
+            moduleService.addMarkItem(module.getId(), markItem);
+        }
     }
 
     private void updateMarkItemList() {

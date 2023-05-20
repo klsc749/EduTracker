@@ -147,7 +147,7 @@ public class ModuleDao extends DAO {
         }
     }
 
-    public void updateModuleById(String id, Module moduleUpdated){
+    public void updateModuleById(Module moduleUpdated){
         // The file to modify
         File file = new File(storeDirectory);
 
@@ -175,7 +175,7 @@ public class ModuleDao extends DAO {
             String currentLine;
             while ((currentLine = bufferedReader.readLine()) != null) {
                 Module module = parseLine(currentLine, Module.class);
-                if (!isModule(module, id)) {
+                if (!isModule(module, moduleUpdated.getId())) {
                     bufferedWriter.write(currentLine + System.getProperty("line.separator"));
                 }else{
                     bufferedWriter.write(JSONObject.toJSONString(moduleUpdated) + System.getProperty("line.separator"));
@@ -210,7 +210,7 @@ public class ModuleDao extends DAO {
         Mark mark = module.getMark();
         mark.getMarkItems().add(markItem);
 
-        updateModuleById(id,module);
+        updateModuleById(module);
     }
 
     public void updateMarkItem(String module_id,String markItem_name, MarkItem markItemUpdated){

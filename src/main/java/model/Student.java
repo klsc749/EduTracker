@@ -1,10 +1,5 @@
 package model;
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Student extends People {

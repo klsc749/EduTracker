@@ -13,7 +13,7 @@ public class ModuleService {
 
     public void deleteModuleById(String id) { moduleDao.deleteModuleById(id);}
 
-    public void updateModuleById(String id, Module moduleUpdated){ moduleDao.updateModuleById(id,moduleUpdated);}
+    public void updateModuleById(Module moduleUpdated){ moduleDao.updateModuleById(moduleUpdated);}
 
     public void addMarkItem(String id, MarkItem markItem){moduleDao.addMarkItem(id,markItem);}
 

@@ -6,7 +6,7 @@ import java.util.List;
 public class Mark implements CalculateMark {
     List<MarkItem> markItems = new ArrayList<MarkItem>();
 
-    public Mark(){
+    public Mark() {
 
     }
 
@@ -39,5 +39,16 @@ public class Mark implements CalculateMark {
             total += markItem.calculateMark();
         }
         return total;
+    }
+
+    public boolean isProportionValid(MarkItem markItem) {
+        double totalProportion = 0;
+        for (MarkItem item : markItems) {
+            totalProportion += item.getProportion();
+        }
+        if (totalProportion + markItem.getProportion() > 1) {
+            return false;
+        }
+        return true;
     }
 }

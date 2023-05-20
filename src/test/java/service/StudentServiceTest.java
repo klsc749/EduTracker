@@ -133,4 +133,11 @@ public class StudentServiceTest {
         //     e.printStackTrace();
         // }
     }
+
+    @Test
+    public void testExportCV() throws Exception{
+        String directory="/Users/coisini/Desktop";
+        File CV=studentService.ExportCV(directory);
+        assertNotNull(CV);
+    }
 }

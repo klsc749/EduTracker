@@ -1,13 +1,17 @@
 package service;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import dao.StudentDao;
 import javafx.scene.image.Image;
 import model.Student;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -212,9 +216,42 @@ public class StudentService {
         }
     }
 
-    //TODO: 导出CV
-    public File ExportCV(){
-        return new File("");
-    }
 
+    /**
+     * Export a CV in pdf format based on the student.txt and PS.txt
+     * @param outputDirectory the directory you want to save
+     * @return a pdf File
+     * @throws Exception
+     */
+    public File ExportCV(String outputDirectory) throws Exception{
+        StringBuilder outputdir=new StringBuilder(outputDirectory);
+        outputdir.append("/CV.pdf");
+        JSONObject stu=studentDao.FileToJson();
+        File outputFile=new File(outputdir.toString());
+
+        //File outputFile=new File(outputDirectory);
+
+        // Create a PDF document
+        Document document = new Document();
+        if(document!=null){
+            PdfWriter.getInstance(document, new FileOutputStream(outputFile));
+            document.open();
+            // Iterate over each item in the JSON object and add it to the PDF document
+            for (String key : stu.keySet()) {
+                String value = stu.getString(key);
+                Paragraph paragraph = new Paragraph(key + ": " + value);
+                document.add(paragraph);
+            }
+            String PSContent=studentDao.ReadFromPS();
+            System.out.println(PSContent);
+            Paragraph PSpara=new Paragraph("PS: "+PSContent);
+            document.add(PSpara);
+            document.close();
+
+            return outputFile;
+        }else{
+            throw new Exception();
+        }
+
+    }
 }

@@ -2,6 +2,7 @@ package dao;
 
 import com.alibaba.fastjson2.JSONObject;
 
+import com.alibaba.fastjson2.util.JSONObject1O;
 import model.Student;
 import javafx.scene.image.Image;
 
@@ -154,6 +155,54 @@ public class StudentDao extends DAO{
 
         return content;
     }
+
+    /**
+     * Generate a JSONObject from student.txt
+     * @return JSONObject
+     * @throws IOException
+     */
+    public JSONObject FileToJson() throws IOException{
+        File studentfile=new File(storeDirectory);
+        if(studentfile.exists()){
+            BufferedReader reader = new BufferedReader(new FileReader(studentfile));
+            StringBuilder jsonContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
+            reader.close();
+            return JSONObject.parseObject(jsonContent.toString());
+        }else{
+            throw new IOException();
+        }
+    }
+
+    /**
+     * Get the content as String from PS.txt
+     * @return String
+     * @throws Exception
+     */
+    public String ReadFromPS() throws Exception{
+        File studentPS=new File(PSDirectory);
+        if(studentPS.exists()){
+            BufferedReader reader=new BufferedReader(new FileReader(studentPS));
+            StringBuilder content=new StringBuilder();
+            String line;
+            Boolean isEmpty=true;
+            while((line=reader.readLine())!=null){
+                content.append(line).append("\n");
+                isEmpty=false;
+            }
+
+            reader.close();
+            if(isEmpty){
+                throw new Exception("empty content in PS.txt");
+            }
+            return content.toString();
+        }
+        return null;
+    }
+
 
 
 }

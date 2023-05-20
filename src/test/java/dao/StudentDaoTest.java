@@ -1,5 +1,6 @@
 package dao;
 
+import com.alibaba.fastjson2.JSONObject;
 import model.Student;
 import org.junit.jupiter.api.Test;
 
@@ -81,4 +82,16 @@ public class StudentDaoTest {
         System.out.println(newContent);
     }
 
+    @Test
+    void testReadJson() throws Exception{
+        JSONObject stu=studentDao.FileToJson();
+        System.out.println(stu);
+        System.out.println(stu.keySet());
+    }
+
+    @Test
+    void testReadPS() throws Exception{
+        String content=studentDao.ReadFromPS();
+        System.out.println(content);
+    }
 }

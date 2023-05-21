@@ -1,4 +1,4 @@
-package component;
+package component.personalInfo;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;

@@ -1,4 +1,4 @@
-package component;
+package component.activityCard;
 
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;

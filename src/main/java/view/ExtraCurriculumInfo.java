@@ -1,6 +1,6 @@
 package view;
 
-import component.ExtraCurriculumTable;
+import component.activityInfo.ExtraCurriculumTable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

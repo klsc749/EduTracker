@@ -1,5 +1,6 @@
-package component;
+package component.activityCard;
 
+import component.activityCard.addActivityCard.AddActivityCard;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

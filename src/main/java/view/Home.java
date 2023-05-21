@@ -2,7 +2,7 @@ package view;
 
 import component.IconButton;
 import component.LeftMenu;
-import component.ScrollableActivityCardPagination;
+import component.activityCard.ScrollableActivityCardPagination;
 import handler.OnActivitySelectedHandler;
 import javafx.application.Application;
 import javafx.scene.Node;

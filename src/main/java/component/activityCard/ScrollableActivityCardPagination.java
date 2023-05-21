@@ -1,7 +1,7 @@
-package component;
+package component.activityCard;
 
+import component.activityCard.ActivityCardPagination;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
 import model.Activity;
 
 import java.util.function.Consumer;

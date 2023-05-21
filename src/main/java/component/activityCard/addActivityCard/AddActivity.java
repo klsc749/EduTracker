@@ -1,5 +1,6 @@
-package component;
+package component.activityCard.addActivityCard;
 
+import component.activityCard.ActivityCardPagination;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

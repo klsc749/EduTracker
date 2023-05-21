@@ -1,4 +1,4 @@
-package component;
+package component.activityInfo;
 
 import dao.ExtraCurriculumDao;
 import javafx.collections.FXCollections;

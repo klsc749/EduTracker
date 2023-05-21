@@ -1,5 +1,7 @@
-package component;
+package component.activityCard.addActivityCard;
 
+import component.activityCard.ActivityCardPagination;
+import component.activityCard.addActivityCard.AddActivity;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;

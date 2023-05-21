@@ -1,4 +1,4 @@
-package component;
+package component.personalInfo;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.*;

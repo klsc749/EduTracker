@@ -1,6 +1,6 @@
 package view;
 
-import component.MarkTable;
+import component.personalInfo.MarkTable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,12 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.Activity;
-import model.Mark;
-import model.MarkItem;
 import model.Module;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModuleInfo extends BorderPane {
     private Button backButton;

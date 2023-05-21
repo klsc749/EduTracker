@@ -1,17 +1,13 @@
 package view;
 
-import component.*;
-import javafx.application.Application;
+import component.personalInfo.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.Student;
 import service.StudentService;
 import javafx.scene.text.Text;

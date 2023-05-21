@@ -1,4 +1,4 @@
-package component;
+package component.personalInfo;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

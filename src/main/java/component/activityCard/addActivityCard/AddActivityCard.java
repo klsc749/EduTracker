@@ -16,7 +16,6 @@ import javafx.stage.Window;
 import service.ActivityService;
 import util.ImageCache;
 
-
 public class AddActivityCard extends VBox {
     private final double maxWidth = 160;
 
@@ -28,7 +27,8 @@ public class AddActivityCard extends VBox {
     private final ActivityService activityService = new ActivityService();
 
     private final ActivityCardPagination activityCardPagination;
-    public AddActivityCard(ActivityCardPagination activityCardPagination){
+
+    public AddActivityCard(ActivityCardPagination activityCardPagination) {
         this.activityCardPagination = activityCardPagination;
         initStyle();
         initAddImage();
@@ -44,7 +44,7 @@ public class AddActivityCard extends VBox {
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> handleMouseClicked());
     }
 
-    private void initStyle(){
+    private void initStyle() {
         setSpacing(10);
         setAlignment(Pos.CENTER);
         setMinWidth(maxWidth);
@@ -55,20 +55,20 @@ public class AddActivityCard extends VBox {
                 "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);");
     }
 
-    private void initAddImage(){
+    private void initAddImage() {
         addDefaultImage = ImageCache.getImage("image/add-default.png");
         addHoverImage = ImageCache.getImage("image/add-hover.png");
     }
 
-    public void handleMouseEntered(){
+    public void handleMouseEntered() {
         imageView.setImage(addHoverImage);
     }
 
-    public void handleMouseExited(){
+    public void handleMouseExited() {
         imageView.setImage(addDefaultImage);
     }
 
-    public void handleMouseClicked(){
+    public void handleMouseClicked() {
         showAddActivityDialog();
     }
 
@@ -81,12 +81,14 @@ public class AddActivityCard extends VBox {
 
         AddActivity addActivity = new AddActivity(activityCardPagination);
         Scene dialogScene = new Scene(addActivity);
+
+        // set the minimum width and height of the dialog
+        dialogStage.setMinWidth(100);
+        dialogStage.setMinHeight(150);
+
         dialogStage.setScene(dialogScene);
-        dialogStage.sizeToScene(); // Resizes the stage to fit the preferred size of its content
-        dialogStage.setResizable(false);
         dialogStage.showAndWait();
     }
-
 
     private Stage getStageFromNode(Node node) {
         if (node != null) {

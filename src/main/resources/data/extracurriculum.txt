@@ -1,2 +1,3 @@
 {"content":"EC1","directors":["1","2","3"],"endDate":"2023-05-13 09:26:12.96","extraCurriculumItems":[],"id":"a277e585-560c-4cba-ab4c-798ef05c04a4","name":"ABC","startDate":"2023-05-13 09:26:12.96","teammates":["4","5","6"],"type":0}
 {"directors":[],"endDate":"2023-05-31 00:00:00","extraCurriculumItems":[],"id":"d1eb1440-02a4-48d7-9795-134df64b4637","name":"mid","startDate":"2023-05-01 00:00:00","teammates":[],"type":0}
+{"directors":[],"endDate":"2023-05-17 00:00:00","extraCurriculumItems":[],"id":"f6f5b90e-47dd-41a6-a5ae-4d20cbf0bb8f","name":"extra","startDate":"2023-05-03 00:00:00","teammates":[],"type":0}

@@ -1,7 +1,5 @@
 package handler;
 import model.Activity;
-import model.ExtraCurriculum;
-import view.ExtraCurriculumHome;
 import view.ExtraCurriculumInfo;
 import view.Home;
 import view.ModuleInfo;

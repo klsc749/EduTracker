@@ -7,6 +7,7 @@ public class Module extends Activity{
     Mark mark;
     String degree;
     List<String> skillTags = new ArrayList<String>();
+    double credit;
 
     double totalMark;
     public Module(){
@@ -35,5 +36,13 @@ public class Module extends Activity{
 
     public void setSkillTags(List<String> skillTags) {
         this.skillTags = skillTags;
+    }
+
+    public double getCredit() {
+        return credit;
+    }
+
+    public void setCredit(double credit) {
+        this.credit = credit;
     }
 }

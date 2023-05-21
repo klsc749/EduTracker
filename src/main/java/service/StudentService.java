@@ -146,7 +146,7 @@ public class StudentService {
         return studentDao.loadPS();
     }
 
-    public String ModifyStudnetPS(String Content){
+    public String ModifyStudentPS(String Content){
         String newContent=studentDao.ModifyContentToPS(Content);
         return newContent;
     }
@@ -205,7 +205,6 @@ public class StudentService {
      * @return Image
      * @throws Exception
      */
-    //TODO：fix bug
     public Image updateStudentImage(File newimage) throws Exception {
         if(SaveNewImage(newimage)){
             Image image=loadStudentImage();
@@ -228,8 +227,6 @@ public class StudentService {
         outputdir.append("/CV.pdf");
         JSONObject stu=studentDao.FileToJson();
         File outputFile=new File(outputdir.toString());
-
-        //File outputFile=new File(outputDirectory);
 
         // Create a PDF document
         Document document = new Document();

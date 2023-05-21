@@ -18,7 +18,6 @@ public class StudentServiceTest {
         //String email1="123@163.com";
         //studentService.updateEmail(email1);
 
-
         boolean thrown=false;
         String email2="!!!@163.com";
         try{

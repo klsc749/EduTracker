@@ -17,7 +17,7 @@ public class BasicInfoPane extends GridPane {
         nameText = new Text(name);
         emailText = new Text(email);
         gpaText = new Text();
-        gpaText.setText("GPA: " + String.format("%.2f", gpa));
+        gpaText.setText(String.format("%.2f", gpa));
 
         addRow(0, new Label("Name："), nameText);
         addRow(1, new Label("Email："), emailText);

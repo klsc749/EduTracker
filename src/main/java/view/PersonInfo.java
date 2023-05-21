@@ -25,6 +25,7 @@ public class PersonInfo extends VBox {
     private Button changeAwardsButton;
     private Button changePersonalStatementButton;
     private Button changePhotoButton;
+    private Button exportCVButton;
     private PhotoPane photoPane;
     private StudentService studentService;
     private ModuleService moduleService;
@@ -48,6 +49,7 @@ public class PersonInfo extends VBox {
         changeAwardsButton = new Button("Add Award");
         changePersonalStatementButton = new Button("Update PS");
         changePhotoButton = new Button("Update Photo");
+        exportCVButton = new Button("Export CV");
         Image image = studentService.loadStudentImage();
         photoPane = new PhotoPane(image);
 
@@ -72,7 +74,8 @@ public class PersonInfo extends VBox {
                 changeEmailButton,
                 changeAwardsButton,
                 changePersonalStatementButton,
-                changePhotoButton
+                changePhotoButton,
+                exportCVButton
         );
 
         mainLayout.getChildren().addAll(leftVBox, photoPane);
@@ -83,6 +86,7 @@ public class PersonInfo extends VBox {
         changeAwardsButton.setOnAction(event -> showAwardsDialog());
         changePersonalStatementButton.setOnAction(event -> showPersonalStatementDialog());
         changePhotoButton.setOnAction(event -> showPhotoDialog());
+        exportCVButton.setOnAction(event -> exportCV());
     }
 
     private void initialize() {
@@ -119,7 +123,7 @@ public class PersonInfo extends VBox {
         dialog.showAndWait().ifPresent(newPersonalStatement -> {
             try {
                 // Update PS
-                String modifiedPersonalStatement = studentService.ModifyStudnetPS(newPersonalStatement);
+                String modifiedPersonalStatement = studentService.ModifyStudentPS(newPersonalStatement);
                 Text newPersonalStatementText = new Text(modifiedPersonalStatement);
                 newPersonalStatementText.setStyle("-fx-font-size: 14px;");
                 personalStatementFlow.getChildren().clear();
@@ -149,5 +153,29 @@ public class PersonInfo extends VBox {
             }
         }
     }
+    private void exportCV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("CV.pdf");
+        File selectedFile = fileChooser.showSaveDialog(getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                File outputFile = studentService.ExportCV(selectedFile.getParent());
+                // 导出CV成功，显示成功提示
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Export CV");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("CV exported successfully!");
+                successAlert.showAndWait();
+            } catch (Exception e) {
+                // 导出CV失败，显示错误提示
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Export CV");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Failed to export CV. Please try again.");
+                errorAlert.showAndWait();
+            }
+        }
+    }
+
 }
 

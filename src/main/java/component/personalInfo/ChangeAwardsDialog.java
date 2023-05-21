@@ -10,10 +10,10 @@ public class ChangeAwardsDialog extends Dialog<Awards> {
     private TextField contentField;
 
     public ChangeAwardsDialog() {
-        setTitle("更改奖项");
+        setTitle("Add Award");
         setHeaderText(null);
 
-        ButtonType submitButtonType = new ButtonType("确定", ButtonBar.ButtonData.OK_DONE);
+        ButtonType submitButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         getDialogPane().getButtonTypes().addAll(submitButtonType, ButtonType.CANCEL);
 
         GridPane grid = new GridPane();
@@ -24,9 +24,9 @@ public class ChangeAwardsDialog extends Dialog<Awards> {
         timeField = new TextField();
         contentField = new TextField();
 
-        grid.add(new Label("时间："), 0, 0);
+        grid.add(new Label("Time："), 0, 0);
         grid.add(timeField, 1, 0);
-        grid.add(new Label("内容："), 0, 1);
+        grid.add(new Label("Content："), 0, 1);
         grid.add(contentField, 1, 1);
 
         getDialogPane().setContent(grid);
@@ -43,7 +43,7 @@ public class ChangeAwardsDialog extends Dialog<Awards> {
 
     public void showAlert(Alert.AlertType alertType, String message) {
         Alert alert = new Alert(alertType);
-        alert.setTitle("错误");
+        alert.setTitle("Wrong!");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

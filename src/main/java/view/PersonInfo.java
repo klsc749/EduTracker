@@ -17,6 +17,11 @@ import javafx.scene.text.TextFlow;
 import java.io.File;
 import java.util.HashMap;
 
+/**
+ * The PersonInfo class represents a graphical component that displays personal information of a student.
+ * It includes basic information, awards, personal statement, photo, and provides functionality to update them.
+ */
+
 public class PersonInfo extends VBox {
 
     private BasicInfoPane basicInfoPane;
@@ -31,13 +36,18 @@ public class PersonInfo extends VBox {
     private ModuleService moduleService;
     private TextFlow personalStatementFlow;
 
+    /**
+     * Constructs a new PersonInfo component.
+     */
     public PersonInfo() {
         initComponents();
         setSpacing(10);
         setPadding(new Insets(10, 10, 10, 10));
-        initialize();
     }
 
+    /**
+     * Shows a dialog to update the email address.
+     */
     private void initComponents() {
         studentService = new StudentService();
         Student student = studentService.getStudent();
@@ -89,10 +99,9 @@ public class PersonInfo extends VBox {
         exportCVButton.setOnAction(event -> exportCV());
     }
 
-    private void initialize() {
-
-    }
-
+    /**
+     * Shows a dialog to update the email address.
+     */
     private void showEmailDialog() {
         ChangeEmailDialog dialog = new ChangeEmailDialog();
         dialog.showAndWait().ifPresent(newEmail -> {
@@ -105,6 +114,9 @@ public class PersonInfo extends VBox {
         });
     }
 
+    /**
+     * Shows a dialog to add an award.
+     */
     private void showAwardsDialog(){
         ChangeAwardsDialog dialog = new ChangeAwardsDialog();
         dialog.showAndWait().ifPresent(awards -> {
@@ -118,6 +130,9 @@ public class PersonInfo extends VBox {
         });
     }
 
+    /**
+     * Shows a dialog to update the personal statement.
+     */
     private void showPersonalStatementDialog() {
         ChangePersonalStatementDialog dialog = new ChangePersonalStatementDialog();
         dialog.showAndWait().ifPresent(newPersonalStatement -> {
@@ -134,6 +149,9 @@ public class PersonInfo extends VBox {
         });
     }
 
+    /**
+     * Shows a dialog to update the photo.
+     */
     private void showPhotoDialog() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp"));
@@ -153,6 +171,11 @@ public class PersonInfo extends VBox {
             }
         }
     }
+
+    /**
+     * Shows a dialog to export the CV (Curriculum Vitae) in PDF format.
+     * Calls the exportCV method of the StudentService.
+     */
     private void exportCV() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName("CV.pdf");
@@ -160,14 +183,12 @@ public class PersonInfo extends VBox {
         if (selectedFile != null) {
             try {
                 File outputFile = studentService.ExportCV(selectedFile.getParent());
-                // 导出CV成功，显示成功提示
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Export CV");
                 successAlert.setHeaderText(null);
                 successAlert.setContentText("CV exported successfully!");
                 successAlert.showAndWait();
             } catch (Exception e) {
-                // 导出CV失败，显示错误提示
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Export CV");
                 errorAlert.setHeaderText(null);
@@ -176,6 +197,5 @@ public class PersonInfo extends VBox {
             }
         }
     }
-
 }
 

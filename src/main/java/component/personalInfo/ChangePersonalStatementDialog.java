@@ -10,7 +10,7 @@ public class ChangePersonalStatementDialog extends Dialog<String> {
     }
 
     private void initDialog() {
-        setTitle("更改个人陈述");
+        setTitle("Update PS");
         setHeaderText(null);
 
         DialogPane dialogPane = getDialogPane();
@@ -23,12 +23,12 @@ public class ChangePersonalStatementDialog extends Dialog<String> {
         personalStatementTextArea.setPrefRowCount(5);
         personalStatementTextArea.setWrapText(true);
 
-        gridPane.addRow(0, new Label("新的个人陈述："), personalStatementTextArea);
+        gridPane.addRow(0, new Label("New PS："), personalStatementTextArea);
 
         dialogPane.setContent(gridPane);
 
-        ButtonType confirmButtonType = new ButtonType("确认", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelButtonType = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType confirmButtonType = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButtonType = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         dialogPane.getButtonTypes().addAll(confirmButtonType, cancelButtonType);
 
@@ -43,7 +43,7 @@ public class ChangePersonalStatementDialog extends Dialog<String> {
 
     public void showAlert(Alert.AlertType alertType, String message) {
         Alert alert = new Alert(alertType);
-        alert.setTitle("警告");
+        alert.setTitle("Warning");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

@@ -50,4 +50,14 @@ public class ModuleServiceTest {
         Module module2 = moduleService.getModuleById(moduleId);
         assert module2 == null;
     }
+
+    @Test
+    public void testGetAllModules(){
+        System.out.println(moduleService.getAllModules());
+    }
+
+    @Test
+    public void testCalculateGPA(){
+        System.out.println(moduleService.calculateGPA());
+    }
 }

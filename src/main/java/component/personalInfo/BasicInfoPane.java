@@ -1,14 +1,24 @@
 package component.personalInfo;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-
 import javafx.scene.text.Text;
 
+/**
+ * The BasicInfoPane class represents a custom GridPane component that displays basic information of a student.
+ * It includes the student's name, email, and GPA.
+ */
 public class BasicInfoPane extends GridPane {
     private Text nameText;
     private Text emailText;
     private Text gpaText;
 
+    /**
+     * Constructs a new BasicInfoPane with the specified name, email, and GPA.
+     *
+     * @param name  The name of the student.
+     * @param email The email address of the student.
+     * @param gpa   The GPA (Grade Point Average) of the student.
+     */
     public BasicInfoPane(String name, String email, double gpa) {
 
         setHgap(10);
@@ -25,6 +35,11 @@ public class BasicInfoPane extends GridPane {
 
     }
 
+    /**
+     * Sets the email address of the student.
+     *
+     * @param email The new email address.
+     */
     public void setEmail(String email) {
         emailText.setText(email);
     }

@@ -1,6 +1,6 @@
 package view;
 
-import component.personalInfo.MarkTable;
+import component.activityInfo.MarkTable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

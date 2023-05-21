@@ -1,4 +1,4 @@
-package component.personalInfo;
+package component.activityInfo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -3,8 +3,16 @@ package component.personalInfo;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+/**
+ * The ChangePersonalStatementDialog class represents a custom Dialog for updating the personal statement.
+ * It allows the user to enter a new personal statement.
+ */
 public class ChangePersonalStatementDialog extends Dialog<String> {
 
+    /**
+     * Constructs a new ChangePersonalStatementDialog.
+     * Initializes the dialog components.
+     */
     public ChangePersonalStatementDialog() {
         initDialog();
     }
@@ -41,6 +49,12 @@ public class ChangePersonalStatementDialog extends Dialog<String> {
 
     }
 
+    /**
+     * Shows an alert dialog with the specified alert type and message.
+     *
+     * @param alertType The type of the alert dialog.
+     * @param message   The message to be displayed in the alert dialog.
+     */
     public void showAlert(Alert.AlertType alertType, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle("Warning");

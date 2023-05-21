@@ -5,10 +5,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import model.Awards;
 
+/**
+ * The ChangeAwardsDialog class represents a custom Dialog for adding an award.
+ * It allows the user to enter the time and content of the award.
+ */
 public class ChangeAwardsDialog extends Dialog<Awards> {
     private TextField timeField;
     private TextField contentField;
 
+    /**
+     * Constructs a new ChangeAwardsDialog.
+     * Sets the title and initializes the dialog components.
+     */
     public ChangeAwardsDialog() {
         setTitle("Add Award");
         setHeaderText(null);
@@ -41,6 +49,12 @@ public class ChangeAwardsDialog extends Dialog<Awards> {
         });
     }
 
+    /**
+     * Shows an alert dialog with the specified alert type and message.
+     *
+     * @param alertType The type of the alert dialog.
+     * @param message   The message to be displayed in the alert dialog.
+     */
     public void showAlert(Alert.AlertType alertType, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle("Wrong!");

@@ -9,10 +9,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 
+/**
+ * The ChangeEmailDialog class represents a custom Dialog for updating the email address.
+ * It allows the user to enter a new email address.
+ */
 public class ChangeEmailDialog extends Dialog<String> {
 
     private TextField newEmailField;
 
+    /**
+     * Constructs a new ChangeEmailDialog.
+     * Sets the title and header text, and initializes the dialog components.
+     */
     public ChangeEmailDialog() {
         setTitle("Update Email");
         setHeaderText("Please input your email address");
@@ -39,6 +47,12 @@ public class ChangeEmailDialog extends Dialog<String> {
         });
     }
 
+    /**
+     * Shows an alert dialog with the specified alert type and message.
+     *
+     * @param alertType The type of the alert dialog.
+     * @param message   The message to be displayed in the alert dialog.
+     */
     public void showAlert(Alert.AlertType alertType, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle("Wrong");

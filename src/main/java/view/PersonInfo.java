@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import model.Student;
+import service.ModuleService;
 import service.StudentService;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -20,12 +21,13 @@ public class PersonInfo extends VBox {
 
     private BasicInfoPane basicInfoPane;
     private AwardsListPane awardsListPane;
-    private ChangeEmailButton changeEmailButton;
+    private Button changeEmailButton;
     private Button changeAwardsButton;
     private Button changePersonalStatementButton;
     private Button changePhotoButton;
     private PhotoPane photoPane;
     private StudentService studentService;
+    private ModuleService moduleService;
     private TextFlow personalStatementFlow;
 
     public PersonInfo() {
@@ -38,32 +40,34 @@ public class PersonInfo extends VBox {
     private void initComponents() {
         studentService = new StudentService();
         Student student = studentService.getStudent();
+        moduleService = new ModuleService();
 
-        basicInfoPane = new BasicInfoPane(student.getName(), student.getEmail());
+        basicInfoPane = new BasicInfoPane(student.getName(), student.getEmail(),moduleService.calculateGPA());
         awardsListPane = new AwardsListPane(FXCollections.observableArrayList(studentService.GetAllAwardContents()));
-        changeEmailButton = new ChangeEmailButton("更改邮箱");
-        changeAwardsButton = new Button("更改奖项");
-        changePersonalStatementButton = new Button("更改个人陈述");
-        changePhotoButton = new Button("更改照片");
+        changeEmailButton = new Button("Update Email");
+        changeAwardsButton = new Button("Add Award");
+        changePersonalStatementButton = new Button("Update PS");
+        changePhotoButton = new Button("Update Photo");
         Image image = studentService.loadStudentImage();
         photoPane = new PhotoPane(image);
 
         personalStatementFlow = new TextFlow();
-        personalStatementFlow.setPrefWidth(400); // 设置首选宽度，根据实际情况进行调整
+        personalStatementFlow.setPrefWidth(400);
 
         String personalStatement = studentService.loadStudentPS();
         Text personalStatementText = new Text(personalStatement);
-        personalStatementText.setStyle("-fx-font-size: 14px;"); // 根据实际需求设置字体大小
+        personalStatementText.setStyle("-fx-font-size: 14px;");
 
         personalStatementFlow.getChildren().add(personalStatementText);
 
         HBox mainLayout = new HBox();
         mainLayout.setSpacing(10);
 
+
         VBox leftVBox = new VBox();
         leftVBox.getChildren().addAll(
                 basicInfoPane,
-                new Label("奖项："),
+                new Label("Awards："),
                 awardsListPane,
                 changeEmailButton,
                 changeAwardsButton,
@@ -82,7 +86,7 @@ public class PersonInfo extends VBox {
     }
 
     private void initialize() {
-        // Nothing to do here in this case.
+
     }
 
     private void showEmailDialog() {
@@ -92,7 +96,7 @@ public class PersonInfo extends VBox {
                 studentService.updateEmail(newEmail);
                 basicInfoPane.setEmail(newEmail);
             } catch (Exception e) {
-                dialog.showAlert(Alert.AlertType.ERROR, "邮箱更新失败，请检查输入");
+                dialog.showAlert(Alert.AlertType.ERROR, "Invalid Input");
             }
         });
     }
@@ -101,11 +105,11 @@ public class PersonInfo extends VBox {
         ChangeAwardsDialog dialog = new ChangeAwardsDialog();
         dialog.showAndWait().ifPresent(awards -> {
             try {
-                // 更新奖项
+                // Update Awards
                 HashMap<String, String> newAwards = studentService.AddAwards(awards.getTime(), awards.getContent());
                 awardsListPane.setItems(FXCollections.observableArrayList(newAwards.values()));
             } catch (Exception e) {
-                dialog.showAlert(Alert.AlertType.ERROR, "添加奖项失败，请检查输入");
+                dialog.showAlert(Alert.AlertType.ERROR, "Invalid Input");
             }
         });
     }
@@ -114,14 +118,14 @@ public class PersonInfo extends VBox {
         ChangePersonalStatementDialog dialog = new ChangePersonalStatementDialog();
         dialog.showAndWait().ifPresent(newPersonalStatement -> {
             try {
-                // 更新个人陈述
+                // Update PS
                 String modifiedPersonalStatement = studentService.ModifyStudnetPS(newPersonalStatement);
                 Text newPersonalStatementText = new Text(modifiedPersonalStatement);
                 newPersonalStatementText.setStyle("-fx-font-size: 14px;");
                 personalStatementFlow.getChildren().clear();
                 personalStatementFlow.getChildren().add(newPersonalStatementText);
             } catch (Exception e) {
-                dialog.showAlert(Alert.AlertType.ERROR, "更新个人陈述失败，请检查输入");
+                dialog.showAlert(Alert.AlertType.ERROR, "Invalid Input");
             }
         });
     }
@@ -132,15 +136,15 @@ public class PersonInfo extends VBox {
         File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
         if (selectedFile != null) {
             try {
-                // 更新照片
+                // Update Photo
                 Image newImage = studentService.updateStudentImage(selectedFile);
                 photoPane.setImage(newImage);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 System.out.println(e);
-                alert.setTitle("错误");
+                alert.setTitle("Wrong!");
                 alert.setHeaderText(null);
-                alert.setContentText("更改照片失败，请检查文件格式和路径");
+                alert.setContentText("Fail in Updating Photo");
                 alert.showAndWait();
             }
         }

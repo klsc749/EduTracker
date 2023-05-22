@@ -1,0 +1,219 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+enum ActivityType{
+    Class
+    Extra
+}
+
+class Activity{
+    -String id
+    -String name
+    -Date startDate
+    -Date endDate
+    -ActivityType type
+    -List<String> directors
+    .. Simple Getter ..
+    +String getId()
+    +String getName()
+    +Date getStartDate()
+    +Date getEndDate()
+    +ActivityType getType()
+    +List<String> getDirectors()
+    ..Simple Setter..
+    +void setId(String id)
+    +void setName(String name)
+    +void setStartDate(Date startDate)
+    +void setEndDate(Date endDate)
+    +void setType(ActivityType type)
+    +void setDirectors(List<String> directors)
+}
+
+class Module{
+    -Mark mark
+    -String degree
+    -List<String> skillTags
+    -double credit
+    .. Simple Getter ..
+    +Mark getMark()
+    +String getDegree()
+    +List<String> getSkillTags()
+    +double getCredit()
+    ..Simple Setter..
+    +void setMark(Mark mark)
+    +void setDegree(String degree)
+    +void setSkillTags(List<String> skillTags)
+    +void setCredit(double credit)
+}
+
+interface CalculateMark{
+    +double calculateMark()
+}
+
+class Mark{
+    -List<MarkItem> markItems
+    -double totalMark
+    +boolean isProportionValid(MarkItem markItem)
+    .. Simple Getter ..
+    +List<MarkItem> getMarkItems()
+    +double getTotalMark()
+    ..Simple Setter..
+    +void setMarkItems(List<MarkItem> markItems)
+}
+
+class MarkItem{
+    -String name;
+    -double mark;
+    -double proportion;
+    .. Simple Getter ..
+    +String getName()
+    +double getMark()
+    +double getProportion()
+    ..Simple Setter..
+    +void setName(String name)
+    +void setMark(double mark)
+    +void setProportion(double proportion)
+}
+
+class ExtraCurriculum{
+    -String content
+    -List<String> teammates
+}
+
+Activity <|-- Module : extends
+Activity <|-- ExtraCurriculum : extends
+Activity "1" *-- "1" ActivityType : has
+
+Module "1" *-- "1" Mark : has
+Mark "1" *-- "*" MarkItem : has
+
+CalculateMark <|.. Mark : implements
+CalculateMark <|.. MarkItem : implements
+
+class People{
+    -String name
+    -String email
+    .. Simple Getter ..
+    +String getName()
+    +String getEmail()
+    ..Simple Setter..
+    +void setName(String name)
+    +void setEmail(String email)
+}
+
+class Student{
+    -String id
+    -String degree
+    -HashMap<String, String> awards
+    .. Simple Getter ..
+    +String getId()
+    +String getDegree()
+    +HashMap<String, String> getAwards()
+    ..Simple Setter..
+    +void setId(String id)
+    +void setDegree(String degree)
+    +void setAwards(HashMap<String, String> awards)
+}
+
+class Award{
+    -String time
+    -String content
+    ..Simple Getter..
+    +String getTime()
+    +String getContent()
+}
+
+People <|-- Student : extends
+Student "1" *-- "*" Award : has
+
+class Dao{
+    +<T> T parseLine(String line, Class<T> objectClass)
+    #void closeFileReader()
+    #void closeBufferedReader()
+}
+
+class ModuleDao{
+    -final String storeDirectory
+    +void save(Module module)
+    +Module getModuleById(String id)
+    +List<Module> getAllModules()
+    +void deleteModuleById(String id)
+    +void updateModuleById(Module moduleUpdated)
+    +void addMarkItem(String id, MarkItem markItem)
+    +void updateMarkItem(String id, MarkItem markItemUpdated)
+}
+
+class ExtraCurriculumDao{
+    -final String storeDirectory
+    +void save(ExtraCurriculum extraCurriculum)
+    +ExtraCurriculum getExtraCurriculumById(String id)
+    +List<ExtraCurriculum> getAllExtraCurriculums()
+}
+
+class StudentDao{
+    -final String storeDirectory
+    -final String photoDirectory
+    -final String PSDirectory
+
+    +void save(Student student)
+    +Student getStudentInfo()
+    +boolean checkEmailLegal(String email)
+    +Image loadIamge()
+    +String ModifyContentToPS(String content)
+    +String loadPs()
+    +JSONObject FileToJson()
+    +String ReadFromPS()
+}
+
+Dao <|-- ModuleDao : extends
+Dao <|-- ExtraCurriculumDao : extends
+Dao <|-- StudentDao : extends
+
+ModuleDao "1" *-- "1" Module : stores
+ExtraCurriculumDao "1" *-- "1" ExtraCurriculum : stores
+StudentDao "1" *-- "1" Student : stores
+
+class ModuleService{
+    -ModuleDao moduleDao
+    +void save(Module module)
+    +Module getModuleById(String id)
+    +List<Module> getAllModules()
+    +void deleteModuleById(String id)
+    +void updateModuleById(Module moduleUpdated)
+    +void addMarkItem(String id, MarkItem markItem)
+    +void updateMarkItem(String id, MarkItem markItemUpdated)
+    +double calculateGPA()
+    +void exportModuleInfo(String Path)
+}
+
+class ExtraCurriculumService{
+    -ExtraCurriculumDao extraCurriculumDao
+    +void save(ExtraCurriculum extraCurriculum)
+    +ExtraCurriculum getExtraCurriculumById(String id)
+    +List<ExtraCurriculum> getAllExtraCurriculums()
+}
+
+class StudentService{
+    -StudentDao studentDao
+    +void updateEmail(String email)
+    +Student getStudent()
+    +HashMap<String, String> addAwards(String time, String awardcontent)
+    +String getContentByDate(String time)
+    +ArrayList<String> getAllAwardContents()
+    +HashMap<String,String> getAllAwards()
+    +boolean isValidDate(String time)
+    +Image loadStudentImage()
+    +String loadStudentPS()
+    +boolean SaveNewImage(File Image)
+    +boolean isImageFile(File file)
+    +Image updateStudentImage(File newImage)
+    +File ExportCV(String Path)
+}
+
+ModuleService "1" *-- "1" ModuleDao : uses
+ExtraCurriculumService "1" *-- "1" ExtraCurriculumDao : uses
+StudentService "1" *-- "1" StudentDao : uses
+
+
+@enduml

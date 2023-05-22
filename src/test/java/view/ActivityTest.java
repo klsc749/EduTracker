@@ -1,17 +1,11 @@
 package view;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-import org.testfx.framework.junit5.Stop;
-
-import component.activityCard.ActivityCard;
 import component.activityCard.addActivityCard.AddActivityCard;
 import javafx.scene.control.ComboBox;
 import model.Activity;
@@ -36,7 +30,7 @@ public class ActivityTest {
         robot.clickOn(addActivityCard);
         ComboBox<Activity.ActivityType> activityTypeComboBox = robot.lookup("#activityTypeComboBox").queryAs(ComboBox.class);
         activityTypeComboBox.getSelectionModel().select(Activity.ActivityType.CLASS);
-        robot.clickOn("#nameTextField").write("TestActivity");
+        robot.clickOn("#nameTextField").write(name);
         robot.clickOn("#degreeTextField").write("2");
         robot.clickOn("#creditTextField").write("3");
         robot.clickOn("#startDatePicker").write("5/12/2020");
@@ -47,7 +41,7 @@ public class ActivityTest {
     @Test
     @Order(2)
     public void testModifyAndDelete(FxRobot robot){
-        robot.clickOn("#TestActivity");
+        robot.clickOn("#" + name);
 
         //modify
         robot.clickOn("#markTableNameTextField").write("Class test1");

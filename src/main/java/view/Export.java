@@ -8,11 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import service.ModuleService;
+import service.StudentService;
 
 public class Export extends VBox {
     private Button exportModuleInfoButton;
+    private Button exportCVButton;
     private DirectoryChooser directoryChooser;
     private ModuleService moduleService = new ModuleService();
+    private StudentService studentService = new StudentService();
     private final String exportModuleInfoFileName = "moduleInfo.pdf";
 
     public Export() {
@@ -27,8 +30,12 @@ public class Export extends VBox {
             handleExportModuleInfoButton();
         });
         
+        exportCVButton = new Button("Export CV");
+        exportCVButton.setOnAction(event -> {
+            handleExportCVButton();
+        });
 
-        getChildren().add(exportModuleInfoButton);
+        this.getChildren().addAll(exportModuleInfoButton, exportCVButton);
     }
 
     private void handleExportModuleInfoButton() {
@@ -37,6 +44,21 @@ public class Export extends VBox {
         if (file != null) {
             System.out.println(file.getAbsolutePath());
             exportModuleInfo(file.getAbsolutePath());
+        }else{
+            throw new RuntimeException("No directory selected");
+        }
+    }
+
+    private void handleExportCVButton() {
+        directoryChooser.setTitle("Select Directory");
+        File file = directoryChooser.showDialog(this.getScene().getWindow());
+        if (file != null) {
+            System.out.println(file.getAbsolutePath());
+            try {
+                studentService.ExportCV(file.getAbsolutePath());
+            } catch (Exception e) {
+                throw new RuntimeException("Export CV failed");
+            }
         }else{
             throw new RuntimeException("No directory selected");
         }

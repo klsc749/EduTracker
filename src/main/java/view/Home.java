@@ -21,8 +21,11 @@ public class Home extends Application {
     private PersonInfo personInfo;
     private LeftMenu leftMenu;
 
+    public static Home instance;
+
     @Override
     public void start(Stage primaryStage) {
+        instance = this;
         root = new BorderPane();
         VBox leftMenu = createLeftMenu();
         root.setLeft(leftMenu);
@@ -78,6 +81,10 @@ public class Home extends Application {
             personInfo = new PersonInfo();
         }
         return personInfo;
+    }
+
+    public void  setHome(){
+        root.setCenter(createScrollableActivityCardPaginationIfNotExit());
     }
 
     /*

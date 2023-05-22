@@ -1,19 +1,24 @@
 package component.activityCard;
 
-import component.activityCard.ActivityCardPagination;
 import javafx.scene.control.ScrollPane;
 import model.Activity;
 
 import java.util.function.Consumer;
 
 public class ScrollableActivityCardPagination extends ScrollPane {
+    private ActivityCardPagination activityCardPagination;
+    
     public ScrollableActivityCardPagination() {
-        ActivityCardPagination activityCardPagination = new ActivityCardPagination();
+        this.activityCardPagination = new ActivityCardPagination();
 
         setContent(activityCardPagination);
         setFitToWidth(true);
         setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         setHbarPolicy(ScrollBarPolicy.NEVER);
+    }
+
+    public void refresh() {
+        activityCardPagination.refresh();
     }
 
     public void setOnActivityClicked(Consumer<Activity> onActivityClicked) {

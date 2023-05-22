@@ -8,12 +8,15 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Activity;
 import model.Module;
+import service.ModuleService;
 
 public class ModuleInfo extends BorderPane {
     private Button backButton;
+    private Button deleteButton;
 
     private VBox content;
 
@@ -22,12 +25,15 @@ public class ModuleInfo extends BorderPane {
 
     private Activity activity;
 
+    private ModuleService moduleService = new ModuleService();
+
     public ModuleInfo(Activity activity) {
         this.activity = activity;
         initStyle();
         setContent();
         setContentStyle();
         backButton = createBackButton();
+        deleteButton = createDeleteButton();
         setLayout();
     }
 
@@ -37,8 +43,11 @@ public class ModuleInfo extends BorderPane {
     }
 
     private void setLayout(){
-        setTop(backButton);
-        BorderPane.setAlignment(backButton, Pos.CENTER_LEFT);
+        HBox topBar = new HBox();
+        topBar.setSpacing(10);
+        topBar.getChildren().addAll(backButton, deleteButton);
+        setTop(topBar);
+        BorderPane.setAlignment(topBar, Pos.CENTER_LEFT);
         setCenter(content);
     }
 
@@ -74,6 +83,27 @@ public class ModuleInfo extends BorderPane {
         backButton.setOnMouseExited(event -> backButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #f0f0f0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;"));
 
         return backButton;
+    }
+
+    private Button createDeleteButton(){
+        Button deleteButton = new Button("Delete");
+
+        // Style the button
+        deleteButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #f0f0f0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;");
+
+        // Add hover effect
+        deleteButton.setOnMouseEntered(event -> deleteButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #e0e0e0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;"));
+        deleteButton.setOnMouseExited(event -> deleteButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #f0f0f0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;"));
+
+        deleteButton.setOnAction(event -> deleteButtonClicked());
+
+        return deleteButton;
+    }
+
+    private void deleteButtonClicked(){
+        moduleService.deleteModuleById(activity.getId());
+        Home.instance.createScrollableActivityCardPaginationIfNotExit().refresh();
+        Home.instance.setHome();
     }
 
 

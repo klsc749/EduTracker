@@ -20,6 +20,7 @@ public class Home extends Application {
 
     private PersonInfo personInfo;
     private LeftMenu leftMenu;
+    private Export export;
 
     public static Home instance;
 
@@ -49,8 +50,10 @@ public class Home extends Application {
         //add buttons to left menu
         IconButton button1 = new IconButton("image/dashboard-default.png", "image/dashboard-hover.png", "Dashboard", 40);
         IconButton button2 = new IconButton("image/personal-default.png", "image/personal-hover.png", "Personal Info", 40);
+        IconButton button3 = new IconButton("image/export-default.png", "image/export-hover.png", "Export", 40);
         leftMenu.getChildren().add(button1);
         leftMenu.getChildren().add(button2);
+        leftMenu.getChildren().add(button3);
 
         button1.setOnAction(event -> {
             setRootRight(createScrollableActivityCardPaginationIfNotExit());
@@ -58,6 +61,10 @@ public class Home extends Application {
 
         button2.setOnAction(actionEvent -> {
             setRootRight(createPersonalInfoIfNotExit());
+        });
+
+        button3.setOnAction(actionEvent -> {
+            setRootRight(createExportIfNotExit());
         });
 
         return leftMenu;
@@ -81,6 +88,13 @@ public class Home extends Application {
             personInfo = new PersonInfo();
         }
         return personInfo;
+    }
+
+    public Export createExportIfNotExit(){
+        if(export == null){
+            export = new Export();
+        }
+        return export;
     }
 
     public void  setHome(){

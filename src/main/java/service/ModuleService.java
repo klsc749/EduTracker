@@ -1,6 +1,14 @@
 package service;
 
+import java.io.FileOutputStream;
 import java.util.List;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import dao.ModuleDao;
 import model.MarkItem;
@@ -46,5 +54,37 @@ public class ModuleService {
 
     public List<Module> getAllModules() {
         return moduleDao.getAllModules();
+    }
+
+    public void exportModuleInfo(String path) {
+        Document document = new Document(PageSize.A4);
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(path));
+            document.open();
+
+            Paragraph title = new Paragraph("Module Information");
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            document.add(new Paragraph(" ")); 
+
+            PdfPTable table = new PdfPTable(3);
+            table.addCell("Module Name");
+            table.addCell("Module Credit");
+            table.addCell("Module Mark");
+            List<Module> modules = moduleDao.getAllModules();
+
+            for (Module module : modules) {
+                table.addCell(module.getName());
+                table.addCell(String.valueOf(module.getCredit()));
+                table.addCell(String.valueOf(module.getMark().calculateMark()));
+            }
+
+            document.add(table);
+            document.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating pdf file");
+        }
     }
 }

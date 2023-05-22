@@ -24,7 +24,6 @@ public class AddActivityCard extends VBox {
 
     private final ImageView imageView;
 
-    private final ActivityService activityService = new ActivityService();
 
     private final ActivityCardPagination activityCardPagination;
 

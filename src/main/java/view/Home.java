@@ -49,8 +49,11 @@ public class Home extends Application {
         leftMenu = new LeftMenu();
         //add buttons to left menu
         IconButton button1 = new IconButton("image/dashboard-default.png", "image/dashboard-hover.png", "Dashboard", 40);
+        button1.setId("button1");
         IconButton button2 = new IconButton("image/personal-default.png", "image/personal-hover.png", "Personal Info", 40);
+        button2.setId("button2");
         IconButton button3 = new IconButton("image/export-default.png", "image/export-hover.png", "Export", 40);
+        button3.setId("button3");
         leftMenu.getChildren().add(button1);
         leftMenu.getChildren().add(button2);
         leftMenu.getChildren().add(button3);

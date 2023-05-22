@@ -43,27 +43,33 @@ public class AddModule extends VBox {
         Label nameLabel = new Label("Activity Name:");
         nameTextField = new TextField();
         nameTextField.setPromptText("Activity Name");
+        nameTextField.setId("nameTextField");
 
         Label degreeLabel = new Label("Degree:");
         degreeTextField = new TextField();
         degreeTextField.setPromptText("Degree");
+        degreeTextField.setId("degreeTextField");
 
         Label creditLabel = new Label("Credit:");
         creditTextField = new TextField();
         creditTextField.setPromptText("Credit");
+        creditTextField.setId("creditTextField");
 
         Label startDateLabel = new Label("Start Date:");
         startDatePicker = new DatePicker();
         startDatePicker.setPromptText("Start Date");
+        startDatePicker.setId("startDatePicker");
 
         Label endDateLabel = new Label("End Date:");
         endDatePicker = new DatePicker();
         endDatePicker.setPromptText("End Date");
+        endDatePicker.setId("endDatePicker");
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             handleSubmitButton();
         });
+        submitButton.setId("submitButton");
 
         gridPane.addColumn(0, nameLabel, degreeLabel, creditLabel, startDateLabel, endDateLabel);
         gridPane.addColumn(1, nameTextField, degreeTextField, creditTextField, startDatePicker, endDatePicker,

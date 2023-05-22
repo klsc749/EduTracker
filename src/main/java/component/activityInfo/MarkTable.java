@@ -121,15 +121,20 @@ public class MarkTable extends VBox {
     private BorderPane addTextFields(Double nameFieldWidth, Double markFieldWidth, Double proportionFieldWidth) {
         // create text fields
         nameTextField = createTextFiled("Mark name", nameFieldWidth);
+        nameTextField.setId("markTableNameTextField");
         markTextField = createTextFiled("Mark", markFieldWidth);
+        markTextField.setId("markTableMarkTextField");
         proportionTextField = createTextFiled("Proportion", proportionFieldWidth);
+        proportionTextField.setId("markTableProportionTextField");
 
         //add button
         Button addButton = new Button("Add");
         addButton.setOnAction(this::handleAddButtonClick);
+        addButton.setId("markTableAddButton");
 
         //save button
         Button saveButton = new Button("Save");
+        saveButton.setId("markTableSaveButton");
         saveButton.setOnAction(this::handleSaveButtonClick);
 
         HBox hBox = new HBox();

@@ -116,6 +116,7 @@ public class ActivityCardPagination extends FlowPane {
         if(addActivityCard.getParent() != null) {
             ((GridPane) addActivityCard.getParent()).getChildren().remove(addActivityCard);
         }
+        addActivityCard.setId("addActivityCard");
         grid.add(addActivityCard, column, row);
 
     }
@@ -138,6 +139,7 @@ public class ActivityCardPagination extends FlowPane {
 
         // Otherwise create a new activity card and cache it
         ActivityCard activityCard = new ActivityCard(activity, "image/icon.png", 0.5, cardWidth, cardHeight, onActivityClicked);
+        activityCard.setId(activity.getName());
         activityCardCache.put(activityId, activityCard);
         return activityCard;
     }

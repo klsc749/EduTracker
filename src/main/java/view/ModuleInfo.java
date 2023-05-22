@@ -32,8 +32,8 @@ public class ModuleInfo extends BorderPane {
         initStyle();
         setContent();
         setContentStyle();
-        backButton = createBackButton();
-        deleteButton = createDeleteButton();
+        createBackButton();
+        createDeleteButton();
         setLayout();
     }
 
@@ -73,7 +73,7 @@ public class ModuleInfo extends BorderPane {
     }
 
     private Button createBackButton() {
-        Button backButton = new Button("Go Back");
+        this.backButton = new Button("Go Back");
 
         // Style the button
         backButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #f0f0f0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;");
@@ -86,11 +86,11 @@ public class ModuleInfo extends BorderPane {
     }
 
     private Button createDeleteButton(){
-        Button deleteButton = new Button("Delete");
+        deleteButton = new Button("Delete");
 
         // Style the button
         deleteButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #f0f0f0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;");
-
+        deleteButton.setId("deleteActivityButton");
         // Add hover effect
         deleteButton.setOnMouseEntered(event -> deleteButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #e0e0e0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;"));
         deleteButton.setOnMouseExited(event -> deleteButton.setStyle("-fx-font-size: 14; -fx-padding: 8 16 8 16; -fx-background-color: #f0f0f0; -fx-border-color: #aaaaaa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-text-fill: #333333; -fx-cursor: hand;"));

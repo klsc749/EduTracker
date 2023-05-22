@@ -45,6 +45,7 @@ public class AddActivity extends VBox {
         activityTypeComboBox.getSelectionModel().select(1
         );
         activityTypeComboBox.setPrefWidth(100);
+        activityTypeComboBox.setId("activityTypeComboBox");
 
         HBox hBox = new HBox();
         hBox.setSpacing(10);

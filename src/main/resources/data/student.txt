@@ -1,1 +1,1 @@
-{"awards":{"2021-02-03":"口算大王","2021-02-04":"大旺八百�??","2021-02-02":"First Class Scholarship","2020-01-01":"Award11","2022-5-11":"test","2002-02-18":"asef","2022-05-11":"test1"},"degree":"2","email":"12346789@qmul.com","name":"WangWang","studentId":"A002"}
+{"awards":{"2021-02-03":"国家奖学金2020学年","2020-01-01":"Award1","2022-5-11":"Award2","2023-01-01":"Test1","2022-02-02":"First Class Scholarship"},"degree":"3","email":"abcd@bupt.edu.cn","name":"WangWang","studentId":"A002"}

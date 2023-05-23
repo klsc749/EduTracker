@@ -56,8 +56,11 @@ public class PersonInfo extends VBox {
         basicInfoPane = new BasicInfoPane(student.getName(), student.getEmail(),moduleService.calculateGPA());
         awardsListPane = new AwardsListPane(FXCollections.observableArrayList(studentService.GetAllAwardContents()));
         changeEmailButton = new Button("Update Email");
+        changeEmailButton.setId("changeEmailButton");
         changeAwardsButton = new Button("Add Award");
+        changeAwardsButton.setId("changeAwardsButton");
         changePersonalStatementButton = new Button("Update PS");
+        changePersonalStatementButton.setId("changePersonalStatementButton");
         changePhotoButton = new Button("Update Photo");
         exportCVButton = new Button("Export CV");
         Image image = studentService.loadStudentImage();

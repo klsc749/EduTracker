@@ -30,7 +30,9 @@ public class ChangeAwardsDialog extends Dialog<Awards> {
         grid.setPadding(new Insets(20, 150, 10, 10));
 
         timeField = new TextField();
+        timeField.setId("timeField");
         contentField = new TextField();
+        contentField.setId("contentField");
 
         grid.add(new Label("Time："), 0, 0);
         grid.add(timeField, 1, 0);

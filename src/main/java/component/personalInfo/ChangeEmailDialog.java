@@ -31,6 +31,7 @@ public class ChangeEmailDialog extends Dialog<String> {
         grid.setPadding(new Insets(20, 150, 10, 10));
 
         newEmailField = new TextField();
+        newEmailField.setId("personalEmailField");
         grid.add(new Label("New Email Address："), 0, 0);
         grid.add(newEmailField, 1, 0);
 

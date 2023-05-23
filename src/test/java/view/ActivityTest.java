@@ -1,6 +1,5 @@
 package view;
 
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -24,7 +23,11 @@ public class ActivityTest {
     }
 
     @Test
-    @Order(1)
+    public void testAddAndModifyAndDeleteActivity(FxRobot robot){
+        testAddActivity(robot);
+        testModifyAndDelete(robot);
+    }
+
     public void testAddActivity(FxRobot robot){
         AddActivityCard addActivityCard = robot.lookup("#addActivityCard").queryAs(AddActivityCard.class);
         robot.clickOn(addActivityCard);
@@ -38,8 +41,7 @@ public class ActivityTest {
         robot.clickOn("#submitButton");
     }
 
-    @Test
-    @Order(2)
+    
     public void testModifyAndDelete(FxRobot robot){
         robot.clickOn("#" + name);
 

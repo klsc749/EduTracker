@@ -28,6 +28,7 @@ public class ChangePersonalStatementDialog extends Dialog<String> {
         gridPane.setVgap(10);
 
         TextArea personalStatementTextArea = new TextArea();
+        personalStatementTextArea.setId("personalStatementTextArea");
         personalStatementTextArea.setPrefRowCount(5);
         personalStatementTextArea.setWrapText(true);
 

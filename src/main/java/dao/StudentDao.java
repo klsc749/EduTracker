@@ -6,10 +6,8 @@ import com.alibaba.fastjson2.util.JSONObject1O;
 import model.Student;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.io.File;
 import java.io.*;
-import java.util.HashMap;
 
 public class StudentDao extends DAO{
     private final String storeDirectory = "src/main/resources/data/student.txt";
@@ -96,7 +94,10 @@ public class StudentDao extends DAO{
         return flag;
     }
 
-
+    /**
+     * load the student image based on the settled photoDirectory
+     * @return student Image
+     */
     public Image loadImage() {
         Image image;
         File imageFile = new File(photoDirectory);
@@ -110,8 +111,8 @@ public class StudentDao extends DAO{
 
     /**
      * Modify content to the PS with the input in TextArea from GUI
-     * @param newContent
-     * @return
+     * @param newContent the new Content input
+     * @return PSContent
      */
     public String ModifyContentToPS(String newContent){
         FileWriter fileWriter=null;
@@ -132,7 +133,7 @@ public class StudentDao extends DAO{
 
     /**
      * Read from PS.txt
-     * @return String content
+     * @return PS content
      */
 
     public String loadPS(){
@@ -178,8 +179,8 @@ public class StudentDao extends DAO{
     }
 
     /**
-     * Get the content as String from PS.txt
-     * @return String
+     * Read the content as String from PS.txt line by line
+     * @return the Content of PS
      * @throws Exception
      */
     public String ReadFromPS() throws Exception{

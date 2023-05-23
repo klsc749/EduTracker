@@ -25,10 +25,8 @@ public class StudentService {
     private StudentDao studentDao = new StudentDao();
 
     /**
-        update student email and save the information in student.txt
-
-        @param email user's input of new email address
-
+     * update student email and save the information in student.txt
+     * @param email user's input of new email address
      */
     public void updateEmail(String email) throws Exception{
         Student stu=studentDao.getStudentInfo();
@@ -41,7 +39,8 @@ public class StudentService {
     }
 
     /**
-        Get student's information
+     * Get Student from DAO
+     * @return Student object
      */
     public Student getStudent(){
         return studentDao.getStudentInfo();
@@ -71,7 +70,7 @@ public class StudentService {
 
     /**
      * get the award content by time key（yyyy-MM-dd）
-     * @param time
+     * @param time a input time
      * @return String: award content
      * @throws Exception
      */
@@ -90,7 +89,7 @@ public class StudentService {
 
     /**
      * Get all awards content
-     * @return ArrayList<String>
+     * @return ArrayList<String> containing all awards Content
      */
     public ArrayList<String> GetAllAwardContents(){
         Student stu=studentDao.getStudentInfo();
@@ -104,7 +103,7 @@ public class StudentService {
 
     /**
      * Get all awards, including time and content
-     * @return HashMap<String,String>
+     * @return HashMap<String,String> Time+Award Content
      */
     public HashMap<String,String> GetAllAwards(){
         Student stu=studentDao.getStudentInfo();
@@ -132,7 +131,6 @@ public class StudentService {
      * Read Student's image
      * @return image
      */
-    //TODO:fix bug
     public javafx.scene.image.Image loadStudentImage() {
         return studentDao.loadImage();
     }
@@ -140,12 +138,17 @@ public class StudentService {
 
     /**
      * Read Student's PS
-     * @return String
+     * @return String PS COntent
      */
     public String loadStudentPS(){
         return studentDao.loadPS();
     }
 
+    /**
+     * Modify Student PS Content with the input
+     * @param Content the input new Content
+     * @return the new Modified PS Content in String format
+     */
     public String ModifyStudentPS(String Content){
         String newContent=studentDao.ModifyContentToPS(Content);
         return newContent;
@@ -153,8 +156,8 @@ public class StudentService {
 
     /**
      *Use FileChooser to choose a file from system and replace the old photo.jpg
-     * @param newimage
-     * @return boolean
+     * @param newimage the choosen new image
+     * @return true, save successfully; false, have Exception or not save well
      */
     public boolean SaveNewImage(File newimage) throws IOException {
         Path destDirPath = Paths.get("src/main/resources/image/student");
@@ -190,8 +193,8 @@ public class StudentService {
 
     /**
      * checks if the file has a valid image file extension
-     * @param file
-     * @return
+     * @param file the chosen file
+     * @return true, the file is an image; false, the file isn't
      */
     private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
@@ -201,8 +204,8 @@ public class StudentService {
 
     /**
      * save a new image file from filechooser and load the student image
-     * @param newimage
-     * @return Image
+     * @param newimage The new file choosen
+     * @return Image The new student photo
      * @throws Exception
      */
     public Image updateStudentImage(File newimage) throws Exception {

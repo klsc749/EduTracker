@@ -30,7 +30,6 @@ public class PersonInfo extends VBox {
     private Button changeAwardsButton;
     private Button changePersonalStatementButton;
     private Button changePhotoButton;
-    private Button exportCVButton;
     private PhotoPane photoPane;
     private StudentService studentService;
     private ModuleService moduleService;
@@ -62,7 +61,6 @@ public class PersonInfo extends VBox {
         changePersonalStatementButton = new Button("Update PS");
         changePersonalStatementButton.setId("changePersonalStatementButton");
         changePhotoButton = new Button("Update Photo");
-        exportCVButton = new Button("Export CV");
         Image image = studentService.loadStudentImage();
         photoPane = new PhotoPane(image);
 
@@ -87,8 +85,7 @@ public class PersonInfo extends VBox {
                 changeEmailButton,
                 changeAwardsButton,
                 changePersonalStatementButton,
-                changePhotoButton,
-                exportCVButton
+                changePhotoButton
         );
 
         mainLayout.getChildren().addAll(leftVBox, photoPane);
@@ -99,7 +96,6 @@ public class PersonInfo extends VBox {
         changeAwardsButton.setOnAction(event -> showAwardsDialog());
         changePersonalStatementButton.setOnAction(event -> showPersonalStatementDialog());
         changePhotoButton.setOnAction(event -> showPhotoDialog());
-        exportCVButton.setOnAction(event -> exportCV());
     }
 
     /**

@@ -1,1 +1,1 @@
-{"awards":{"2021-02-03":"国家奖学金2020学年","2020-01-01":"Award1","2022-5-11":"Award2","2023-01-01":"Test1","2022-02-02":"First Class Scholarship"},"degree":"3","email":"abcd@bupt.edu.cn","name":"WangWang","studentId":"A002"}
+{"awards":{"2021-02-03":"国家奖学金2020学年","2020-01-01":"Award1","2022-5-11":"Award2","2023-01-01":"Test1","2020-05-05":"Award3","2022-02-02":"First Class Scholarship"},"degree":"3","email":"myemail@bupt.edu.cn","name":"WangWang","studentId":"A002"}

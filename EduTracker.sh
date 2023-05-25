@@ -1,1 +1,1 @@
-java -jar .\out\artifacts\EduTracker_jar\EduTracker.jar
+java -jar EduTracker_ForMAC.jar

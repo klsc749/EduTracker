@@ -50,6 +50,11 @@
       <version>5.5.13.3</version>
     </dependency>
     <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itext-asian</artifactId>
+      <version>5.2.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.testfx</groupId>
       <artifactId>testfx-junit5</artifactId>
       <version>4.0.16-alpha</version>

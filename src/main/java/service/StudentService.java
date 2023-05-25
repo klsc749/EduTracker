@@ -2,7 +2,10 @@ package service;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import dao.StudentDao;
 import javafx.scene.image.Image;
@@ -231,17 +234,40 @@ public class StudentService {
         JSONObject stu=studentDao.FileToJson();
         File outputFile=new File(outputdir.toString());
 
+        Font contentFont = getBaseFont();
+
         // Create a PDF document
         Document document = new Document();
         if(document!=null){
             PdfWriter.getInstance(document, new FileOutputStream(outputFile));
             document.open();
-            // Iterate over each item in the JSON object and add it to the PDF document
-            for (String key : stu.keySet()) {
-                String value = stu.getString(key);
-                Paragraph paragraph = new Paragraph(key + ": " + value);
-                document.add(paragraph);
+            //document=createCV(stu);
+            // Add the name and studentId
+            String name = stu.getString("name");
+            String studentId = stu.getString("studentId");
+            Paragraph nameAndIdParagraph = new Paragraph("Name: " + name + "\nStudent ID: " + studentId, contentFont);
+            document.add(nameAndIdParagraph);
+
+            // Add the email
+            String email = stu.getString("email");
+            Paragraph emailParagraph = new Paragraph("Email: " + email, contentFont);
+            document.add(emailParagraph);
+
+            // Add the degree
+            String degree = stu.getString("degree");
+            Paragraph degreeParagraph = new Paragraph("Degree: " + degree, contentFont);
+            document.add(degreeParagraph);
+
+            // Add the awards
+            JSONObject awards = stu.getJSONObject("awards");
+            StringBuilder awardsContent = new StringBuilder();
+            for (String awardDate : awards.keySet()) {
+                String awardName = awards.getString(awardDate);
+                awardsContent.append(awardDate).append(": ").append(awardName).append("\n");
             }
+            Paragraph awardsParagraph = new Paragraph("Awards:\n" + awardsContent.toString(), contentFont);
+            document.add(awardsParagraph);
+
             String PSContent=studentDao.ReadFromPS();
             System.out.println(PSContent);
             Paragraph PSpara=new Paragraph("PS: "+PSContent);
@@ -253,5 +279,16 @@ public class StudentService {
             throw new Exception();
         }
 
+    }
+
+    /**
+     * supports Chinese character in the document
+     * @return ChineseFont
+     * @throws DocumentException
+     * @throws IOException
+     */
+    private Font getBaseFont() throws DocumentException, IOException {
+        BaseFont chineseFont = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+        return new Font(chineseFont);
     }
 }

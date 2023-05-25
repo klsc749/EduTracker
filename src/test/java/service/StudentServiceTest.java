@@ -1,5 +1,8 @@
 package service;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.itextpdf.text.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -137,6 +140,13 @@ public class StudentServiceTest {
     public void testExportCV() throws Exception{
         String directory="/Users/coisini/Desktop";
         File CV=studentService.ExportCV(directory);
+        assertNotNull(CV);
+    }
+
+    @Test
+    public void testExportCV2() throws Exception {
+        JSONObject stu = JSON.parseObject("{\"awards\":{\"2021-02-03\":\"国家奖学金2020学年\",\"2020-01-01\":\"Award1\",\"2022-5-11\":\"Award2\",\"2023-01-01\":\"Test1\",\"2022-02-02\":\"First Class Scholarship\"},\"degree\":\"3\",\"email\":\"abcd@bupt.edu.cn\",\"name\":\"WangWang\",\"studentId\":\"A002\"}");
+        File CV=studentService.ExportCV("/Users/coisini/Desktop");
         assertNotNull(CV);
     }
 }

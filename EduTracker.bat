@@ -1,0 +1,1 @@
+java -jar .\out\artifacts\EduTracker_jar\EduTracker.jar

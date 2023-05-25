@@ -43,8 +43,8 @@ public class PersonalInfoTest {
 
     private void addReward(FxRobot robot){
         robot.clickOn("#changeAwardsButton");
-        robot.clickOn("#timeField").write("2022-5-11");
-        robot.clickOn("#contentField").write("test2");
+        robot.clickOn("#timeField").write("2022-5-14");
+        robot.clickOn("#contentField").write("test4");
         robot.clickOn("OK");
     }
 

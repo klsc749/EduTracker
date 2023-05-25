@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"component"},{"l":"component.activityCard"},{"l":"component.activityCard.addActivityCard"},{"l":"component.activityInfo"},{"l":"component.personalInfo"},{"l":"dao"},{"l":"handler"},{"l":"model"},{"l":"service"},{"l":"util"},{"l":"view"}];updateSearchResults();

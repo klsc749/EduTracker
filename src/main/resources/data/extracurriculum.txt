@@ -1,6 +1,1 @@
 {"content":"Singing competition","directors":[],"extraCurriculumItems":[],"id":"ce11b043-5ead-4cd5-b33e-209173377ecf","name":"Singing","teammates":[],"type":0}
-{"content":"Dancing meeting, Dancing competition","directors":[],"extraCurriculumItems":[],"id":"98396a29-13a0-4e2d-8ba4-d0724a7d410e","name":"Dancing","teammates":[],"type":0}
-{"content":"Drama show","directors":[],"extraCurriculumItems":[],"id":"48374812-d426-434d-86ba-7c51d26f9ab2","name":"Drama","teammates":[],"type":0}
-{"content":"Basketball Game","directors":[],"extraCurriculumItems":[],"id":"553bc0f2-bdc6-4542-bcb8-3fb6ef616481","name":"Basketball","teammates":[],"type":0}
-{"content":"Football Game","directors":[],"extraCurriculumItems":[],"id":"0b45ec1a-5476-4c52-9cf2-8a2b1373536a","name":"Football","teammates":[],"type":0}
-{"content":"5000 meter run, 1000 meter run, 50 meter run","directors":[],"extraCurriculumItems":[],"id":"3046fcf4-c99d-464e-bc70-7d9fc1e6b5f8","name":"Running","teammates":[],"type":0}

@@ -1,1 +1,2 @@
 {"content":"Singing competition","directors":[],"extraCurriculumItems":[],"id":"ce11b043-5ead-4cd5-b33e-209173377ecf","name":"Singing","teammates":[],"type":0}
+{"content":"study rap","directors":[],"extraCurriculumItems":[],"id":"17a6158f-c4cb-4bae-80cb-901e4056ce8c","name":"rap","teammates":[],"type":0}

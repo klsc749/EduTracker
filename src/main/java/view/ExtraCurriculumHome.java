@@ -20,7 +20,7 @@ public class ExtraCurriculumHome extends Application {
 
         Scene scene = new Scene(root, 400, 300);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("额外项目或研究");
+        primaryStage.setTitle("ExtraCurriculumInfo");
         primaryStage.show();
     }
 

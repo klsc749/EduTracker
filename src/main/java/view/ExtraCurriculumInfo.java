@@ -21,9 +21,10 @@ public class ExtraCurriculumInfo extends BorderPane {
     private VBox content;
 
     private Label titleLabel;
-    private ExtraCurriculumTable extraCurriculumTable;
 
     private Activity activity;
+
+    private ExtraCurriculumTable extraCurriculumTable;
 
     public ExtraCurriculumInfo(Activity activity) {
         this.activity = activity;
